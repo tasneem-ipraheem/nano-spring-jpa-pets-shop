@@ -1,10 +1,13 @@
 package com.udacity.jdnd.course3.critter.utils;
 
+import java.util.Set;
+
 //org.springframework.beans.BeanUtils.copyProperties(Object source, Object target)
 //org.apache.commons.beanutils.BeanUtils.copyProperties(Object dest, Object orig)
 
 import org.springframework.beans.BeanUtils;
 
+import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
 import com.udacity.jdnd.course3.critter.model.dto.CustomerDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.model.dto.PetDTO;
@@ -52,6 +55,12 @@ public class DtoDaoAdaptor {
 	public static EmployeeDTO getDtoFromEmployee(Employee employee) {
 		EmployeeDTO employeeDTO = new EmployeeDTO();
 		BeanUtils.copyProperties(employee, employeeDTO);
+		
+		Set<EmployeeSkillType> employeeDTOSkills = employeeDTO.getSkills();
+		employeeDTOSkills.addAll(employee.getEmployeeSkills());
+		
+		employeeDTO.setSkills(employeeDTOSkills);
+		
 		return employeeDTO;
 	}
 	
@@ -59,6 +68,11 @@ public class DtoDaoAdaptor {
 	public static Employee getCustomerFromDto(EmployeeDTO employeeDTO) {
 		Employee employee = new Employee();
 		BeanUtils.copyProperties(employeeDTO,employee);
+		
+		Set<EmployeeSkillType> employeeSkills = employee.getEmployeeSkills();
+		employeeSkills.addAll(employeeDTO.getSkills());
+		employee.setEmployeeSkills(employeeSkills);
+		
 		return employee;
 	}
 

@@ -20,7 +20,10 @@ public class EmployeeService {
 	
 	public EmployeeDTO  test_findEmployeeById(Long id){
 		Employee emp = employeeReprository.test_findEmployeeById(id);
-		return DtoDaoAdaptor.getDtoFromEmployee(emp);
+		
+		EmployeeDTO dto = DtoDaoAdaptor.getDtoFromEmployee(emp);
+		System.out.println("dto = "+dto.toString());
+		return dto;
 	}
 
 }

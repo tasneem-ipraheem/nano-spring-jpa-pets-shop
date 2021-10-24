@@ -27,7 +27,11 @@ public class EmployeeReprository {
 	public Employee test_findEmployeeById(Long id){
 		  TypedQuery<Employee> query = entityManager.createQuery(QUERIES.test_GET_EMPLOYEE_BY_ID, Employee.class);
 		   query.setParameter("id", id);
-		   return query.getSingleResult();
+		   
+		   Employee e =  query.getSingleResult();
+		   
+		   System.out.println( " e = "+e.toString());
+		   return e;
 		
 	}
 }
