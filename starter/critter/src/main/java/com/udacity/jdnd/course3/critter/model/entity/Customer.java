@@ -20,8 +20,12 @@ public class Customer implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 	
+	@org.hibernate.annotations.Type( type = "nstring" )
     private String name;
+	
     private String phoneNumber;
+    
+	@org.hibernate.annotations.Type( type = "materialized_nclob" )
     private String notes;
     
     

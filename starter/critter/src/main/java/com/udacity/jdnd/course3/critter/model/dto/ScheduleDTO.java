@@ -17,6 +17,9 @@ public class ScheduleDTO {
     private LocalDate date;
     private Set<EmployeeSkillType> activities;
 
+    
+    
+    
     public List<Long> getEmployeeIds() {
         return employeeIds;
     }

@@ -25,7 +25,7 @@ public class Employee implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 	
-	
+	@org.hibernate.annotations.Type( type = "nstring" )
     private String name;
     
     @ElementCollection

@@ -14,8 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.udacity.jdnd.course3.critter.model.PetType;
-
 
 @Entity
 public class Pet implements Serializable{
@@ -26,6 +26,9 @@ public class Pet implements Serializable{
     private long id;
 	
     private PetType type;
+    
+    
+	@org.hibernate.annotations.Type( type = "nstring" )
     private String name;
     private LocalDate birthDate;
     private String notes;
