@@ -44,10 +44,7 @@ public class Pet implements Serializable{
     private Customer customer;
 
     
-    
-    
     // pet owns set of schedules
-    
     @ManyToMany(mappedBy = "pets")
 	private List<Schedule> schedules = new ArrayList<>();
     
@@ -79,7 +76,14 @@ public class Pet implements Serializable{
 		return Objects.equals(birthDate, other.birthDate) && Objects.equals(customer, other.customer) && id == other.id
 				&& Objects.equals(name, other.name) && Objects.equals(notes, other.notes)
 				&& Objects.equals(schedules, other.schedules) && type == other.type;
+	}
+
+	@Override
+	public String toString() {
+		return "Pet [id=" + id + ", type=" + type + ", name=" + name + ", birthDate=" + birthDate + ", notes=" + notes
+				+ ", customer=" + customer + ", schedules=" + schedules + "]";
 	}  
 
+	
 	
 }

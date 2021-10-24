@@ -8,13 +8,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
 import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
@@ -26,15 +24,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Employee extends User implements Serializable{
-	
-//	@Id
-//    @Column(name = "id", nullable = false)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private long id;
-//	
-//	@org.hibernate.annotations.Type( type = "nstring" )
-//    private String name;
-    
+
     @ElementCollection
     @CollectionTable(name = "employeeSkills")
     private Set<EmployeeSkillType> employeeSkills = new HashSet<EmployeeSkillType>();
@@ -44,10 +34,11 @@ public class Employee extends User implements Serializable{
     private Set<DayOfWeek> employeedaysAvailable = new HashSet<DayOfWeek>();
     
     
-    
+    /*
+     * check , cascade = CascadeType.ALL
+     * */
     // employee owns set of schedules
-
-    @ManyToMany(mappedBy = "employees")
+    @ManyToMany(mappedBy = "employees")// ,fetch = FetchType.EAGER)
 	private List<Schedule> schedules = new ArrayList<>();
     
     
@@ -81,6 +72,12 @@ public class Employee extends User implements Serializable{
 		return Objects.equals(employeeSkills, other.employeeSkills)
 				&& Objects.equals(employeedaysAvailable, other.employeedaysAvailable)
 				&& Objects.equals(schedules, other.schedules);
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [employeeSkills=" + employeeSkills + ", employeedaysAvailable=" + employeedaysAvailable
+				+ ", schedules=" + schedules + ", toString()=" + super.toString() + "]";
 	}
 
 	

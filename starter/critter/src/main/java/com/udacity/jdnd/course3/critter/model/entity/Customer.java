@@ -8,6 +8,7 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,23 +21,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Customer extends User implements Serializable{
-	
-//	@Id
-//    @Column(name = "id", nullable = false)
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private long id;
-//	
-//	@org.hibernate.annotations.Type( type = "nstring" )
-//    private String name;
-//	
-//    private String phoneNumber;
     
 	@org.hibernate.annotations.Type( type = "materialized_nclob" )
     private String notes;
     
     
     //bi-directional - the owner(1:m) table = mapped by --> add & remove
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<Pet> pets = new ArrayList<>();
     
     
@@ -68,6 +59,11 @@ public class Customer extends User implements Serializable{
 			return false;
 		Customer other = (Customer) obj;
 		return Objects.equals(notes, other.notes) && Objects.equals(pets, other.pets);
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [notes=" + notes + ", pets=" + pets + ", toString()=" + super.toString() + "]";
 	}
 
 

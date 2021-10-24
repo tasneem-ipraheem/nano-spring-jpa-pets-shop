@@ -13,6 +13,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,13 +39,12 @@ public class Schedule  implements Serializable{
 	
     // schedule belongs to set of employees
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL )//,fetch = FetchType.EAGER)
 	private List<Employee> employees = new ArrayList<>();
     
     
     // schedule belongs to set of pets
-
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)//,fetch = FetchType.EAGER)
     private List<Pet> pets = new ArrayList<>();
     
     
@@ -71,6 +71,12 @@ public class Schedule  implements Serializable{
 		Schedule other = (Schedule) obj;
 		return Objects.equals(ScheduleActivities, other.ScheduleActivities) && Objects.equals(date, other.date)
 				&& Objects.equals(employees, other.employees) && id == other.id && Objects.equals(pets, other.pets);
+	}
+
+	@Override
+	public String toString() {
+		return "Schedule [id=" + id + ", employees=" + employees + ", pets=" + pets + ", date=" + date
+				+ ", ScheduleActivities=" + ScheduleActivities + "]";
 	}
     
     
