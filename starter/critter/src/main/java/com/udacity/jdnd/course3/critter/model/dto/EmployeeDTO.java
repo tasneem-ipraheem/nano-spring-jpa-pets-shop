@@ -3,16 +3,7 @@ package com.udacity.jdnd.course3.critter.model.dto;
 import java.time.DayOfWeek;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
-
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Represents the form that employee request and response data takes. Does not map
