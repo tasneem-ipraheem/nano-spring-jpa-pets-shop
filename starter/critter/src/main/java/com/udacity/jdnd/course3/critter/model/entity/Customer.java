@@ -19,17 +19,17 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Customer implements Serializable{
+public class Customer extends User implements Serializable{
 	
-	@Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-	
-	@org.hibernate.annotations.Type( type = "nstring" )
-    private String name;
-	
-    private String phoneNumber;
+//	@Id
+//    @Column(name = "id", nullable = false)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private long id;
+//	
+//	@org.hibernate.annotations.Type( type = "nstring" )
+//    private String name;
+//	
+//    private String phoneNumber;
     
 	@org.hibernate.annotations.Type( type = "materialized_nclob" )
     private String notes;
@@ -52,21 +52,25 @@ public class Customer implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, notes, pets, phoneNumber);
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(notes, pets);
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		return id == other.id && Objects.equals(name, other.name) && Objects.equals(notes, other.notes)
-				&& Objects.equals(pets, other.pets) && Objects.equals(phoneNumber, other.phoneNumber);
+		return Objects.equals(notes, other.notes) && Objects.equals(pets, other.pets);
 	}
+
+
 	
 	
 	

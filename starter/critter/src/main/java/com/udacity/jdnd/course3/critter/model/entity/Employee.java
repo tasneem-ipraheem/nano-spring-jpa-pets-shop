@@ -25,15 +25,15 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Employee implements Serializable{
+public class Employee extends User implements Serializable{
 	
-	@Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-	
-	@org.hibernate.annotations.Type( type = "nstring" )
-    private String name;
+//	@Id
+//    @Column(name = "id", nullable = false)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private long id;
+//	
+//	@org.hibernate.annotations.Type( type = "nstring" )
+//    private String name;
     
     @ElementCollection
     @CollectionTable(name = "employeeSkills")
@@ -63,23 +63,25 @@ public class Employee implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(employeeSkills, employeedaysAvailable, id, name, schedules);
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(employeeSkills, employeedaysAvailable, schedules);
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Employee other = (Employee) obj;
 		return Objects.equals(employeeSkills, other.employeeSkills)
-				&& Objects.equals(employeedaysAvailable, other.employeedaysAvailable) && id == other.id
-				&& Objects.equals(name, other.name) && Objects.equals(schedules, other.schedules);
+				&& Objects.equals(employeedaysAvailable, other.employeedaysAvailable)
+				&& Objects.equals(schedules, other.schedules);
 	}
-	
-	
+
 	
 }
