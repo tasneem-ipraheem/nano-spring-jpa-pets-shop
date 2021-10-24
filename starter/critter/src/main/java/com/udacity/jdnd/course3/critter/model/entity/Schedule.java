@@ -18,9 +18,14 @@ import javax.persistence.ManyToMany;
 
 import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
 
+import lombok.Getter;
+import lombok.Setter;
+
 //schedules that associate pets and employees
 
 @Entity
+@Getter
+@Setter
 public class Schedule  implements Serializable{
 	
 	@Id
@@ -48,45 +53,4 @@ public class Schedule  implements Serializable{
     @CollectionTable(name = "Schedule_activities")
     private List<EmployeeSkillType> ScheduleActivities = new ArrayList<>();
 
-    
-    
-	/*****************************/
-
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	public List<Employee> getEmployees() {
-		return employees;
-	}
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
-	}
-
-	public LocalDate getDate() {
-		return date;
-	}
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
-	public List<Pet> getPets() {
-		return pets;
-	}
-	public void setPets(List<Pet> pets) {
-		this.pets = pets;
-	}
-	public List<EmployeeSkillType> getScheduleActivities() {
-		return ScheduleActivities;
-	}
-	public void setScheduleActivities(List<EmployeeSkillType> scheduleActivities) {
-		ScheduleActivities = scheduleActivities;
-	}
-
-	
-    
-    
-    
 }

@@ -17,7 +17,12 @@ import javax.persistence.ManyToMany;
 
 import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 public class Employee implements Serializable{
 	
 	@Id
@@ -53,51 +58,5 @@ public class Employee implements Serializable{
 		schedules.remove( schedule );
 		schedule.getEmployees().remove( this );
 	}
-
 	
-	/*****************************/
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public List<EmployeeSkillType> getEmployeeSkills() {
-		return employeeSkills;
-	}
-
-	public void setEmployeeSkills(List<EmployeeSkillType> employeeSkills) {
-		this.employeeSkills = employeeSkills;
-	}
-
-	public List<DayOfWeek> getEmployeedaysAvailable() {
-		return employeedaysAvailable;
-	}
-
-	public void setEmployeedaysAvailable(List<DayOfWeek> employeedaysAvailable) {
-		this.employeedaysAvailable = employeedaysAvailable;
-	}
-
-	public List<Schedule> getSchedules() {
-		return schedules;
-	}
-
-	public void setSchedules(List<Schedule> schedules) {
-		this.schedules = schedules;
-	}
-	
-	
-
 }
