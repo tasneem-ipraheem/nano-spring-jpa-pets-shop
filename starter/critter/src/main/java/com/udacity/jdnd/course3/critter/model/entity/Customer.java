@@ -1,12 +1,19 @@
 package com.udacity.jdnd.course3.critter.model.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Customer {
+public class Customer implements Serializable{
 	
 	@Id
     @Column(name = "id", nullable = false)
@@ -18,7 +25,7 @@ public class Customer {
     private String notes;
     
     
-    //bi-directional
+    //bi-directional - the owner(1:m) table = mapped by --> add & remove
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pet> pets = new ArrayList<>();
     

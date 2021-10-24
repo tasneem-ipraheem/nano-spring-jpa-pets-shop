@@ -1,6 +1,9 @@
 package com.udacity.jdnd.course3.critter.model.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,13 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.udacity.jdnd.course3.critter.model.PetType;
 
 
 @Entity
-public class Pet {
+public class Pet implements Serializable{
 	
 	@Id
     @Column(name = "id", nullable = false)
@@ -33,9 +37,21 @@ public class Pet {
     
     
     
+    // pet owns set of schedules
+    
+    @ManyToMany(mappedBy = "pets")
+	private List<Schedule> schedules = new ArrayList<>();
     
     
-    
+	public void addSchedule(Schedule schedule) {
+		schedules.add( schedule );
+		schedule.getPets().add( this );
+	}
+
+	public void removeSchedule(Schedule schedule) {
+		schedules.remove( schedule );
+		schedule.getPets().remove( this );
+	}
     
     
     
