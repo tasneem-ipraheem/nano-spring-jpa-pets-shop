@@ -3,7 +3,10 @@ package com.udacity.jdnd.course3.critter.model.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -13,7 +16,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 
 import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
@@ -51,6 +53,26 @@ public class Schedule  implements Serializable{
     
     @ElementCollection
     @CollectionTable(name = "Schedule_activities")
-    private List<EmployeeSkillType> ScheduleActivities = new ArrayList<>();
+    private Set<EmployeeSkillType> ScheduleActivities = new HashSet<EmployeeSkillType>();
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(ScheduleActivities, date, employees, id, pets);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Schedule other = (Schedule) obj;
+		return Objects.equals(ScheduleActivities, other.ScheduleActivities) && Objects.equals(date, other.date)
+				&& Objects.equals(employees, other.employees) && id == other.id && Objects.equals(pets, other.pets);
+	}
+    
+    
 
 }

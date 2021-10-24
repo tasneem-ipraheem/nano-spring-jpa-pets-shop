@@ -35,12 +35,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.projectlombok</groupId> -->
-<!-- 			<artifactId>lombok</artifactId> -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
 <!-- 			        <version>1.18.20</version> -->
-<!--         <scope>provided</scope> -->
-<!-- 		</dependency> -->
+        <scope>provided</scope>
+		</dependency>
 		
 		<dependency>
 			<groupId>mysql</groupId>

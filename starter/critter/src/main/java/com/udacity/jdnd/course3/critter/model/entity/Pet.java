@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -59,6 +60,26 @@ public class Pet implements Serializable{
 	public void removeSchedule(Schedule schedule) {
 		schedules.remove( schedule );
 		schedule.getPets().remove( this );
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(birthDate, customer, id, name, notes, schedules, type);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pet other = (Pet) obj;
+		return Objects.equals(birthDate, other.birthDate) && Objects.equals(customer, other.customer) && id == other.id
+				&& Objects.equals(name, other.name) && Objects.equals(notes, other.notes)
+				&& Objects.equals(schedules, other.schedules) && type == other.type;
 	}  
 
+	
 }

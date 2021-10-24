@@ -3,6 +3,7 @@ package com.udacity.jdnd.course3.critter.model.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,5 +49,25 @@ public class Customer implements Serializable{
 		pets.remove( pet );
 		pet.setCustomer( null );
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, notes, pets, phoneNumber);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		return id == other.id && Objects.equals(name, other.name) && Objects.equals(notes, other.notes)
+				&& Objects.equals(pets, other.pets) && Objects.equals(phoneNumber, other.phoneNumber);
+	}
+	
+	
 	
 }

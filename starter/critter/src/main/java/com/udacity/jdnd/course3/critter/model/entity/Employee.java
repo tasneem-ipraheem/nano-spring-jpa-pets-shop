@@ -3,7 +3,10 @@ package com.udacity.jdnd.course3.critter.model.entity;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -12,7 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 
 import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
@@ -35,11 +37,11 @@ public class Employee implements Serializable{
     
     @ElementCollection
     @CollectionTable(name = "employeeSkills")
-    private List<EmployeeSkillType> employeeSkills = new ArrayList<>();
+    private Set<EmployeeSkillType> employeeSkills = new HashSet<EmployeeSkillType>();
     
     @ElementCollection
     @CollectionTable(name = "employeedaysAvailable")
-    private List<DayOfWeek> employeedaysAvailable = new ArrayList<>();
+    private Set<DayOfWeek> employeedaysAvailable = new HashSet<DayOfWeek>();
     
     
     
@@ -58,5 +60,26 @@ public class Employee implements Serializable{
 		schedules.remove( schedule );
 		schedule.getEmployees().remove( this );
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(employeeSkills, employeedaysAvailable, id, name, schedules);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Employee other = (Employee) obj;
+		return Objects.equals(employeeSkills, other.employeeSkills)
+				&& Objects.equals(employeedaysAvailable, other.employeedaysAvailable) && id == other.id
+				&& Objects.equals(name, other.name) && Objects.equals(schedules, other.schedules);
+	}
+	
+	
 	
 }
