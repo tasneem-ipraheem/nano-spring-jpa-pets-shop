@@ -11,6 +11,14 @@ import javax.persistence.Id;
 //@Entity
 public enum EmployeeSkillType {
 	PETTING, WALKING, FEEDING, MEDICATING, SHAVING;
+	
+//	  public static boolean contains(String s)
+//	  {
+//	      for(EmployeeSkillType choice:values())
+//	           if (choice.name().equals(s)) 
+//	              return true;
+//	      return false;
+//	  } 
 
 //	@Id
 //	public String name = toString();

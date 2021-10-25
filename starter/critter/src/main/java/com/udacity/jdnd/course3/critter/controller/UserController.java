@@ -1,6 +1,7 @@
 package com.udacity.jdnd.course3.critter.controller;
 
 import java.time.DayOfWeek;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -16,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
 import com.udacity.jdnd.course3.critter.model.dto.CustomerDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeRequestDTO;
 import com.udacity.jdnd.course3.critter.model.entity.Employee;
 import com.udacity.jdnd.course3.critter.service.EmployeeService;
 import com.udacity.jdnd.course3.critter.service.exception.EntityNotFoundException;
+import com.udacity.jdnd.course3.critter.service.exception.UnSupportedActivityException;
 import com.udacity.jdnd.course3.critter.utils.DtoDaoAdaptor;
 
 /**
@@ -56,7 +59,8 @@ public class UserController {
     @PostMapping("/employee")
     public EmployeeDTO saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
     	
-    	
+      throw new UnsupportedOperationException();
+
 //    	    return employeeService.save(employeeDTO);
     	
 //    	EmployeeSkillType[] x = EmployeeSkillType.values();
@@ -70,9 +74,20 @@ public class UserController {
 //			
 //		}
     	
+//    	Set<EmployeeSkillType> x = employeeDTO.getSkills();
+//    	List<EmployeeSkillType> y = Arrays.asList(EmployeeSkillType.values());
+//    	x.removeAll(y);
+//    	if (x.size() != 0 ) {
+//    		System.out.println(" xxxx "+x);
+//    		System.out.println(" yyyy "+y);
+//
+//    		System.out.println(" ffff "+employeeDTO.toString());
+//    		throw new UnSupportedActivityException();
+//		}
+//    	
+    	
 //    	return new EmployeeDTO();
     	
-        throw new UnsupportedOperationException();
     }
     
     @GetMapping("/employee/{employeeId}")
