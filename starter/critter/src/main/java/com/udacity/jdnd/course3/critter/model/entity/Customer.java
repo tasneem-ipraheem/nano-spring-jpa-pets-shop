@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 public class Customer extends User implements Serializable{
     
-	@org.hibernate.annotations.Type( type = "materialized_nclob" )
+//	@org.hibernate.annotations.Type( type = "materialized_nclob" )
     private String notes;
     
     
