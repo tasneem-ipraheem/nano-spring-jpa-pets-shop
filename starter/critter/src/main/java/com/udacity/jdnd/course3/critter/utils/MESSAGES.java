@@ -10,4 +10,12 @@ public class MESSAGES {
 		public static final String ID_NOT_FOUND  = "Could not find Entity With id = ";
 	}
 	
+	
+	public final class VALIDATIONS {
+		public static final String NAME ="Name is mandatory";
+		public static final String PHONENUMBER ="phoneNumber is mandatory";
+		public static final String EMAIL ="email is mandatory";
+		public static final String CITY ="city is mandatory";
+		public static final String FULLADDRESS ="fullAddress is mandatory";
+	}
 }

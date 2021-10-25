@@ -1,14 +1,10 @@
 package com.udacity.jdnd.course3.critter.model.dto;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
+
+import com.udacity.jdnd.course3.critter.utils.MESSAGES;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,20 +15,23 @@ public class UserDTO {
 
     private long id;
     
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = MESSAGES.VALIDATIONS.NAME)
     private String name;
 	
-    @NotBlank(message = "phoneNumber is mandatory")
+    @NotBlank(message = MESSAGES.VALIDATIONS.PHONENUMBER)
     private String phoneNumber;
     
-    @NotBlank(message = "email is mandatory")
+    @NotBlank(message = MESSAGES.VALIDATIONS.EMAIL)
     private String email;
     
-    @NotBlank(message = "city is mandatory")
+    @NotBlank(message = MESSAGES.VALIDATIONS.CITY)
     private String city;
     
-    @NotBlank(message = "fullAddress is mandatory")
+    @NotBlank(message = MESSAGES.VALIDATIONS.FULLADDRESS)
     private String fullAddress;
+    
+    
+    
 	@Override
 	public int hashCode() {
 		return Objects.hash(city, email, fullAddress, id, name, phoneNumber);

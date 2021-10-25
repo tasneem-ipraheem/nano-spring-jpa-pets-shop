@@ -26,7 +26,12 @@ import lombok.Setter;
 @Setter
 public class Employee extends User implements Serializable{
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "employeeSkills")
 	@Enumerated(EnumType.STRING)
     private Set<EmployeeSkillType> employeeSkills = new HashSet<EmployeeSkillType>();
