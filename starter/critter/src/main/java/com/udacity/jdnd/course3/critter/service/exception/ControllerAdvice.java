@@ -19,6 +19,15 @@ public class ControllerAdvice {
 	String entityNotFoundException(EntityNotFoundException ex) {
 		return ex.getMessage();
 	}
+	
+	
+	@ResponseBody
+	@ExceptionHandler(GeneralResponceException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	String generalResponceException(GeneralResponceException ex) {
+		return ex.getMessage();
+	}
+	
 
 	@ResponseBody
 	@ExceptionHandler(UnSupportedActivityException.class)

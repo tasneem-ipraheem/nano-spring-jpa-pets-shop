@@ -1,5 +1,7 @@
 package com.udacity.jdnd.course3.critter.service;
 
+import static org.mockito.Mockito.never;
+
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,6 +19,7 @@ import com.udacity.jdnd.course3.critter.model.entity.Employee;
 import com.udacity.jdnd.course3.critter.repository.EmployeeReprository;
 import com.udacity.jdnd.course3.critter.service.exception.AlreadyExistException;
 import com.udacity.jdnd.course3.critter.service.exception.EntityNotFoundException;
+import com.udacity.jdnd.course3.critter.service.exception.GeneralResponceException;
 import com.udacity.jdnd.course3.critter.service.exception.UnSupportedIdParam;
 import com.udacity.jdnd.course3.critter.utils.MESSAGES;
 
@@ -64,6 +67,11 @@ public class EmployeeService {
 	               availableEmployees.add(emp);
 	           }
 	       }
+	       
+	  if (availableEmployees.size() == 0) 
+	    	  throw new GeneralResponceException(MESSAGES.EMPLOYEE.NOT_AVAILABLE_EMPLOYEES);
+		
+	       
 		 return availableEmployees;
 		 
     }

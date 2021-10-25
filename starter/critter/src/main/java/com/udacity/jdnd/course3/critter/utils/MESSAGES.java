@@ -39,7 +39,8 @@ public class MESSAGES {
 	
 	
 	public final class EMPLOYEE {
-		
+		public static final String NOT_AVAILABLE_EMPLOYEES = "Sorry such skills are not available in this day, choose another day";
+
 	}
 	
 }

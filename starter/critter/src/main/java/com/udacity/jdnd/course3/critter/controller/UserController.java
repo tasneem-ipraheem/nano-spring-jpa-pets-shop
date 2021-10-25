@@ -79,17 +79,18 @@ public class UserController {
 
 	}
 
+	// postman name :  Employee set Availability
 	@PutMapping("/employee/{id}")
 	public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long id) {
 		employeeService.setAvailability(daysAvailable, id);
 
 	}
 
+	// postman name : Check Employee Schedule
 	@GetMapping("/employee/availability")
 	public List<EmployeeDTO> findEmployeesForService( @RequestBody EmployeeRequestDTO employeeRequestDTO) {
 		
 		List<Employee> employeeList = employeeService.getEmployeesForService(employeeRequestDTO);
-		
 		return DtoDaoAdaptor.getListDtoFromEmployee(employeeList);
 
 	}
