@@ -49,12 +49,13 @@ public class UserController {
     public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
         throw new UnsupportedOperationException();
     }
-
+    
     @GetMapping("/employee/{id}")
     public EmployeeDTO getEmployee(@PathVariable long id) {
+    	return employeeService.getEmployeeById(id);
     	
     	
-    	return employeeService.test_findEmployeeById(id);
+    	
 //        throw new UnsupportedOperationException();
     }
 
@@ -68,4 +69,10 @@ public class UserController {
         throw new UnsupportedOperationException();
     }
 
+
+    @GetMapping("/test/{id}")
+    public EmployeeDTO getTest(@PathVariable long id) {
+    	return employeeService.test(id);
+//        throw new UnsupportedOperationException();
+    }
 }
