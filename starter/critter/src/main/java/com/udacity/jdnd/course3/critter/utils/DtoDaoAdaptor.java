@@ -69,7 +69,7 @@ public class DtoDaoAdaptor {
 	}
 	
 	
-	public static Employee getCustomerFromDto(EmployeeDTO employeeDTO) {
+	public static Employee getEmployeeFromDto(EmployeeDTO employeeDTO) {
 		Employee employee = new Employee();
 		BeanUtils.copyProperties(employeeDTO,employee);
 		

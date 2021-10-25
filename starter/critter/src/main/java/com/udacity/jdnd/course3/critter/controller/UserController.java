@@ -1,7 +1,6 @@
 package com.udacity.jdnd.course3.critter.controller;
 
 import java.time.DayOfWeek;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -17,21 +16,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
 import com.udacity.jdnd.course3.critter.model.dto.CustomerDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeRequestDTO;
 import com.udacity.jdnd.course3.critter.model.entity.Employee;
 import com.udacity.jdnd.course3.critter.service.EmployeeService;
 import com.udacity.jdnd.course3.critter.service.exception.EntityNotFoundException;
-import com.udacity.jdnd.course3.critter.service.exception.UnSupportedActivityException;
+import com.udacity.jdnd.course3.critter.service.exception.GeneralServerException;
 import com.udacity.jdnd.course3.critter.utils.DtoDaoAdaptor;
+import com.udacity.jdnd.course3.critter.utils.MESSAGES;
 
 /**
  * Handles web requests related to Users.
  *
- * Includes requests for both customers and employees. Splitting this into separate user and customer controllers
- * would be fine too, though that is not part of the required scope for this class.
+ * Includes requests for both customers and employees. Splitting this into
+ * separate user and customer controllers would be fine too, though that is not
+ * part of the required scope for this class.
  */
 @RestController
 @RequestMapping("/user")
@@ -41,28 +41,64 @@ public class UserController {
 	EmployeeService employeeService;
 
 	@PostMapping("/customer")
-    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
-        throw new UnsupportedOperationException();
-    }
+	public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
+		throw new UnsupportedOperationException();
+	}
 
-    @GetMapping("/customer")
-    public List<CustomerDTO> getAllCustomers(){
-        throw new UnsupportedOperationException();
-    }
+	@GetMapping("/customer")
+	public List<CustomerDTO> getAllCustomers() {
+		throw new UnsupportedOperationException();
+	}
 
-    @GetMapping("/customer/pet/{petId}")
-    public CustomerDTO getOwnerByPet(@PathVariable long petId){
-        throw new UnsupportedOperationException();
-    }
+	@GetMapping("/customer/pet/{petId}")
+	public CustomerDTO getOwnerByPet(@PathVariable long petId) {
+		throw new UnsupportedOperationException();
+	}
 
-    @Validated
-    @PostMapping("/employee")
-    public EmployeeDTO saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
-    	
-      throw new UnsupportedOperationException();
+	/********************** employee ****************************/
+
+	@Validated
+	@PostMapping("/employee")
+	public EmployeeDTO saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
+
+		Employee employee = employeeService.save(DtoDaoAdaptor.getEmployeeFromDto(employeeDTO))
+				.orElseThrow(() -> new GeneralServerException(MESSAGES.EXCEPTIONS.FAIL_SAVE));
+
+		return DtoDaoAdaptor.getDtoFromEmployee(employee);
+	}
+
+	@GetMapping("/employee/{employeeId}")
+	public EmployeeDTO getEmployee(@PathVariable long employeeId) {
+
+		Employee employee = employeeService.getEmployeeById(employeeId)
+				.orElseThrow(() -> new EntityNotFoundException(employeeId));
+
+		return DtoDaoAdaptor.getDtoFromEmployee(employee);
+
+	}
+
+	@PutMapping("/employee/{employeeId}")
+	public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
+		throw new UnsupportedOperationException();
+	}
+
+	@GetMapping("/employee/availability")
+	public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeRequestDTO) {
+		throw new UnsupportedOperationException();
+	}
+
+	/*
+	 * @GetMapping("/test/{id}") public EmployeeDTO getTest(@PathVariable long id) {
+	 * return employeeService.test(id); // throw new
+	 * UnsupportedOperationException(); }
+	 */
+
+//    @Validated
+//    @PostMapping("/employee")
+//    public EmployeeDTO saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
 
 //    	    return employeeService.save(employeeDTO);
-    	
+
 //    	EmployeeSkillType[] x = EmployeeSkillType.values();
 //    	Set<EmployeeSkillType> y = employeeDTO.getSkills();
 //    	
@@ -73,7 +109,7 @@ public class UserController {
 //    	if (.) {
 //			
 //		}
-    	
+
 //    	Set<EmployeeSkillType> x = employeeDTO.getSkills();
 //    	List<EmployeeSkillType> y = Arrays.asList(EmployeeSkillType.values());
 //    	x.removeAll(y);
@@ -85,36 +121,8 @@ public class UserController {
 //    		throw new UnSupportedActivityException();
 //		}
 //    	
-    	
+
 //    	return new EmployeeDTO();
-    	
-    }
-    
-    @GetMapping("/employee/{employeeId}")
-    public EmployeeDTO getEmployee(@PathVariable long employeeId) {
-    	
-    	Employee employee =  employeeService.getEmployeeById(employeeId)
-    			.orElseThrow(() -> new EntityNotFoundException(employeeId));
-    	
-    	return  DtoDaoAdaptor.getDtoFromEmployee(employee);
-    	
-//        throw new UnsupportedOperationException();
-    }
 
-    @PutMapping("/employee/{employeeId}")
-    public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
-    }
-
-    @GetMapping("/employee/availability")
-    public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeRequestDTO) {
-        throw new UnsupportedOperationException();
-    }
-
-/*
-    @GetMapping("/test/{id}")
-    public EmployeeDTO getTest(@PathVariable long id) {
-    	return employeeService.test(id);
-//        throw new UnsupportedOperationException();
-    }*/
+//    }
 }

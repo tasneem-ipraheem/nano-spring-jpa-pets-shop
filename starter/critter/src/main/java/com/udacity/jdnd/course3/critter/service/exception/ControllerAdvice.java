@@ -28,6 +28,29 @@ public class ControllerAdvice {
 	}
 
 	@ResponseBody
+	@ExceptionHandler(UnSupportedIdParam.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	String unSupportedIdParam(UnSupportedIdParam ex) {
+		return ex.getMessage();
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(AlreadyExistException.class)
+	@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+	String AlreadyExistException(AlreadyExistException ex) {
+		return ex.getMessage();
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(GeneralServerException.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	String generalServerException(GeneralServerException ex) {
+		return ex.getMessage();
+	}
+	
+	
+	
+	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

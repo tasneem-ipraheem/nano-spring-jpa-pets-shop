@@ -7,7 +7,23 @@ public class MESSAGES {
 				+ "Please select one Supported activity [PETTING, WALKING, FEEDING, MEDICATING, SHAVING]";
 		
 		
+		
+		public static final String  UnSupportedIdParam ="rmove id param, our system offers id autogeneration ";
+		
+		
+		
 		public static final String ID_NOT_FOUND  = "Could not find Entity With id = ";
+
+
+
+		public static final String EMAIL_ALREADY_EXIST = "Email Already Exist";
+		public static final String PHONENUMBER_ALREADY_EXIST = "phoneNumber Already Exist";
+		
+		
+		
+		public static final String FAIL_SAVE ="saving operation faild, try again later";
+
+		
 	}
 	
 	
@@ -18,4 +34,10 @@ public class MESSAGES {
 		public static final String CITY ="city is mandatory";
 		public static final String FULLADDRESS ="fullAddress is mandatory";
 	}
+	
+	
+	public final class EMPLOYEE {
+		
+	}
+	
 }
