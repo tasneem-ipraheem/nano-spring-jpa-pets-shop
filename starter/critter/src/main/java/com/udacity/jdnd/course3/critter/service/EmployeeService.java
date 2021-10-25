@@ -18,6 +18,7 @@ public class EmployeeService {
 	DtoDaoAdaptor adaptor = new DtoDaoAdaptor();
 
 	public EmployeeDTO  getEmployeeById(Long id){
+		
 		Employee emp = employeeReprository.getOne(id);
 		
 		EmployeeDTO dto = DtoDaoAdaptor.getDtoFromEmployee(emp);
@@ -25,7 +26,7 @@ public class EmployeeService {
 		return dto;
 	}
 	
-	
+	/*
 	Test test;
 	public EmployeeService(Test test) {
 		super();
@@ -39,5 +40,6 @@ public class EmployeeService {
 		System.out.println("dto = "+dto.toString());
 		return dto;
 	}
+	*/
 
 }
