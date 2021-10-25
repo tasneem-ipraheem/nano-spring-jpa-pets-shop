@@ -1,15 +1,25 @@
 package com.udacity.jdnd.course3.critter.controller;
 
-import org.springframework.web.bind.annotation.*;
+import java.time.DayOfWeek;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.udacity.jdnd.course3.critter.model.dto.CustomerDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeRequestDTO;
+import com.udacity.jdnd.course3.critter.model.entity.Employee;
 import com.udacity.jdnd.course3.critter.service.EmployeeService;
-
-import java.time.DayOfWeek;
-import java.util.List;
-import java.util.Set;
+import com.udacity.jdnd.course3.critter.service.exception.EntityNotFoundException;
+import com.udacity.jdnd.course3.critter.utils.DtoDaoAdaptor;
 
 /**
  * Handles web requests related to Users.
@@ -21,14 +31,12 @@ import java.util.Set;
 @RequestMapping("/user")
 public class UserController {
 
+	@Autowired
 	EmployeeService employeeService;
 	
-	
-	
-    public UserController(EmployeeService employeeService) {
-		super();
-		this.employeeService = employeeService;
-	}
+	DtoDaoAdaptor adaptor = new DtoDaoAdaptor();
+
+
 
 	@PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
@@ -52,9 +60,10 @@ public class UserController {
     
     @GetMapping("/employee/{id}")
     public EmployeeDTO getEmployee(@PathVariable long id) {
-    	return employeeService.getEmployeeById(id);
     	
+    	Employee employee =  employeeService.getEmployeeById(id).orElseThrow(() -> new EntityNotFoundException(id));
     	
+    	return  DtoDaoAdaptor.getDtoFromEmployee(employee);
     	
 //        throw new UnsupportedOperationException();
     }

@@ -1,13 +1,12 @@
 package com.udacity.jdnd.course3.critter.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.udacity.jdnd.course3.critter.model.dto.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.model.entity.Employee;
 import com.udacity.jdnd.course3.critter.repository.EmployeeReprository;
-import com.udacity.jdnd.course3.critter.repository.Test;
-import com.udacity.jdnd.course3.critter.utils.DtoDaoAdaptor;
 
 @Service
 public class EmployeeService {
@@ -15,15 +14,10 @@ public class EmployeeService {
 	@Autowired
 	EmployeeReprository employeeReprository;
 
-	DtoDaoAdaptor adaptor = new DtoDaoAdaptor();
 
-	public EmployeeDTO  getEmployeeById(Long id){
+	public Optional<Employee> getEmployeeById(Long id){
 		
-		Employee emp = employeeReprository.getOne(id);
-		
-		EmployeeDTO dto = DtoDaoAdaptor.getDtoFromEmployee(emp);
-		System.out.println("dto = "+dto.toString());
-		return dto;
+		return employeeReprository.findById(id);
 	}
 	
 	/*
