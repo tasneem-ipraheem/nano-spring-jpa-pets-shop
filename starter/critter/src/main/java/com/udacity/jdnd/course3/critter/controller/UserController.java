@@ -69,10 +69,10 @@ public class UserController {
         throw new UnsupportedOperationException();
     }
 
-
+/*
     @GetMapping("/test/{id}")
     public EmployeeDTO getTest(@PathVariable long id) {
     	return employeeService.test(id);
 //        throw new UnsupportedOperationException();
-    }
+    }*/
 }
