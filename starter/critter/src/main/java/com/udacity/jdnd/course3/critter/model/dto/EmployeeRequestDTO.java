@@ -1,31 +1,55 @@
 package com.udacity.jdnd.course3.critter.model.dto;
-
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
+
+
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
+import com.udacity.jdnd.course3.critter.utils.MESSAGES;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents a request to find available employees by skills. Does not map
  * to the database directly.
  */
-public class EmployeeRequestDTO {
+@Getter
+@Setter
+public class EmployeeRequestDTO implements Serializable{
     private Set<EmployeeSkillType> skills;
+    
+//    @NotBlank(message = MESSAGES.VALIDATIONS.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    public Set<EmployeeSkillType> getSkills() {
-        return skills;
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(date, skills);
+	}
 
-    public void setSkills(Set<EmployeeSkillType> skills) {
-        this.skills = skills;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EmployeeRequestDTO other = (EmployeeRequestDTO) obj;
+		return Objects.equals(date, other.date) && Objects.equals(skills, other.skills);
+	}
 
-    public LocalDate getDate() {
-        return date;
-    }
+	@Override
+	public String toString() {
+		return "EmployeeRequestDTO [skills=" + skills + ", date=" + date + "]";
+	}
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
+
+    
 }

@@ -1,6 +1,9 @@
 package com.udacity.jdnd.course3.critter.service;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -8,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
+import com.udacity.jdnd.course3.critter.model.dto.EmployeeRequestDTO;
 import com.udacity.jdnd.course3.critter.model.entity.Employee;
 import com.udacity.jdnd.course3.critter.repository.EmployeeReprository;
 import com.udacity.jdnd.course3.critter.service.exception.AlreadyExistException;
@@ -39,12 +44,29 @@ public class EmployeeService {
 
 	public Employee setAvailability(Set<DayOfWeek> daysAvailable, long id) {
 
-		Employee employee = employeeReprository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException(id));
+		Employee employee = employeeReprository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
 
 		employee.setEmployeedaysAvailable(daysAvailable);
 		return employeeReprository.save(employee);
 	}
+
+	public List<Employee> getEmployeesForService(EmployeeRequestDTO employeeRequestDTO) {
+		
+		DayOfWeek dayAvailable = employeeRequestDTO.getDate().getDayOfWeek();
+		Set<EmployeeSkillType> requiredSkills = employeeRequestDTO.getSkills();
+		
+		 List<Employee> employeesAvailableAtTheDay = employeeReprository.findEmployeesByEmployeedaysAvailable(dayAvailable);
+		
+		 List<Employee> availableEmployees =  new ArrayList<Employee>();
+		 
+	       for(Employee emp : employeesAvailableAtTheDay){
+	           if(emp.getEmployeeSkills().containsAll(requiredSkills)) {
+	               availableEmployees.add(emp);
+	           }
+	       }
+		 return availableEmployees;
+		 
+    }
 
 	void validateEmployeeEntity(Employee employee) {
 		if (employee.getId() == null)
@@ -57,15 +79,5 @@ public class EmployeeService {
 			throw new AlreadyExistException(MESSAGES.EXCEPTIONS.PHONENUMBER_ALREADY_EXIST);
 
 	}
-
-	/*
-	 * Test test; public EmployeeService(Test test) { super(); this.test = test; }
-	 * 
-	 * public EmployeeDTO test(Long id){ Employee emp =
-	 * test.test_findEmployeeById(id);
-	 * 
-	 * EmployeeDTO dto = DtoDaoAdaptor.getDtoFromEmployee(emp);
-	 * System.out.println("dto = "+dto.toString()); return dto; }
-	 */
 
 }

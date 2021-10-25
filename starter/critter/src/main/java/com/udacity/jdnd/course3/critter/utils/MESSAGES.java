@@ -33,6 +33,8 @@ public class MESSAGES {
 		public static final String EMAIL ="email is mandatory";
 		public static final String CITY ="city is mandatory";
 		public static final String FULLADDRESS ="fullAddress is mandatory";
+		public static final String DATE ="date is mandatory";
+
 	}
 	
 	

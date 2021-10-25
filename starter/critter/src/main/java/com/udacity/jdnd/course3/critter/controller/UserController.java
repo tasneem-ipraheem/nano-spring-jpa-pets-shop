@@ -1,6 +1,7 @@
 package com.udacity.jdnd.course3.critter.controller;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
 import com.udacity.jdnd.course3.critter.model.dto.CustomerDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeRequestDTO;
@@ -80,50 +82,16 @@ public class UserController {
 	@PutMapping("/employee/{id}")
 	public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long id) {
 		employeeService.setAvailability(daysAvailable, id);
-		
+
 	}
 
 	@GetMapping("/employee/availability")
-	public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeRequestDTO) {
-		throw new UnsupportedOperationException();
+	public List<EmployeeDTO> findEmployeesForService( @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+		
+		List<Employee> employeeList = employeeService.getEmployeesForService(employeeRequestDTO);
+		
+		return DtoDaoAdaptor.getListDtoFromEmployee(employeeList);
+
 	}
 
-	/*
-	 * @GetMapping("/test/{id}") public EmployeeDTO getTest(@PathVariable long id) {
-	 * return employeeService.test(id); // throw new
-	 * UnsupportedOperationException(); }
-	 */
-
-//    @Validated
-//    @PostMapping("/employee")
-//    public EmployeeDTO saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
-
-//    	    return employeeService.save(employeeDTO);
-
-//    	EmployeeSkillType[] x = EmployeeSkillType.values();
-//    	Set<EmployeeSkillType> y = employeeDTO.getSkills();
-//    	
-//    	
-//    	if () {
-//			
-//		}
-//    	if (.) {
-//			
-//		}
-
-//    	Set<EmployeeSkillType> x = employeeDTO.getSkills();
-//    	List<EmployeeSkillType> y = Arrays.asList(EmployeeSkillType.values());
-//    	x.removeAll(y);
-//    	if (x.size() != 0 ) {
-//    		System.out.println(" xxxx "+x);
-//    		System.out.println(" yyyy "+y);
-//
-//    		System.out.println(" ffff "+employeeDTO.toString());
-//    		throw new UnSupportedActivityException();
-//		}
-//    	
-
-//    	return new EmployeeDTO();
-
-//    }
 }

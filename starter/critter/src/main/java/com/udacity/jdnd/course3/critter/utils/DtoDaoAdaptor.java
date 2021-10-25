@@ -1,6 +1,10 @@
 package com.udacity.jdnd.course3.critter.utils;
 
+import static org.mockito.Mockito.never;
+
 import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 //org.springframework.beans.BeanUtils.copyProperties(Object source, Object target)
@@ -83,6 +87,16 @@ public class DtoDaoAdaptor {
 		
 		return employee;
 	}
+	
+	
+	public static List<EmployeeDTO>  getListDtoFromEmployee(List<Employee>  employeeList) {
+		 List<EmployeeDTO> empListDTO = new ArrayList<EmployeeDTO>();
+		 
+	      for (Employee emp : employeeList) 
+	    	  empListDTO.add(getDtoFromEmployee(emp));
+	      
+	      return empListDTO;
+	 }
 
 	/******************************		Schedule		****************************/
 
