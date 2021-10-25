@@ -18,11 +18,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EmployeeDTO extends UserDTO {
-
-//    private long id;
-//    
-//    @NotBlank(message = "Name is mandatory")
-//    private String name;
     
     private Set<EmployeeSkillType> skills = new HashSet<EmployeeSkillType>();
     private Set<DayOfWeek> daysAvailable =new HashSet<DayOfWeek>();

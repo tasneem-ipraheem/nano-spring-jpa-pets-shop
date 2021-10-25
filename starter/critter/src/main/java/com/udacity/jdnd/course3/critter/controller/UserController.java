@@ -70,9 +70,9 @@ public class UserController {
 //			
 //		}
     	
-    	return new EmployeeDTO();
+//    	return new EmployeeDTO();
     	
-//        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
     
     @GetMapping("/employee/{employeeId}")
