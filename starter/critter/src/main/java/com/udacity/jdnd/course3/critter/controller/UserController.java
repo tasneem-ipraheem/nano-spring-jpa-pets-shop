@@ -4,7 +4,10 @@ import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,10 +36,6 @@ public class UserController {
 
 	@Autowired
 	EmployeeService employeeService;
-	
-	DtoDaoAdaptor adaptor = new DtoDaoAdaptor();
-
-
 
 	@PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
@@ -53,15 +52,34 @@ public class UserController {
         throw new UnsupportedOperationException();
     }
 
+    @Validated
     @PostMapping("/employee")
-    public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        throw new UnsupportedOperationException();
+    public EmployeeDTO saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
+    	
+    	
+//    	    return employeeService.save(employeeDTO);
+    	
+//    	EmployeeSkillType[] x = EmployeeSkillType.values();
+//    	Set<EmployeeSkillType> y = employeeDTO.getSkills();
+//    	
+//    	
+//    	if () {
+//			
+//		}
+//    	if (.) {
+//			
+//		}
+    	
+    	return new EmployeeDTO();
+    	
+//        throw new UnsupportedOperationException();
     }
     
-    @GetMapping("/employee/{id}")
-    public EmployeeDTO getEmployee(@PathVariable long id) {
+    @GetMapping("/employee/{employeeId}")
+    public EmployeeDTO getEmployee(@PathVariable long employeeId) {
     	
-    	Employee employee =  employeeService.getEmployeeById(id).orElseThrow(() -> new EntityNotFoundException(id));
+    	Employee employee =  employeeService.getEmployeeById(employeeId)
+    			.orElseThrow(() -> new EntityNotFoundException(employeeId));
     	
     	return  DtoDaoAdaptor.getDtoFromEmployee(employee);
     	

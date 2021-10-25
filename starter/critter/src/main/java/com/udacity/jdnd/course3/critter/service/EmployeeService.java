@@ -1,10 +1,13 @@
 package com.udacity.jdnd.course3.critter.service;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
+import com.udacity.jdnd.course3.critter.model.dto.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.model.entity.Employee;
 import com.udacity.jdnd.course3.critter.repository.EmployeeReprository;
 
@@ -19,6 +22,16 @@ public class EmployeeService {
 		
 		return employeeReprository.findById(id);
 	}
+
+
+//	public Employee save(Employee employee) {
+		// TODO Auto-generated method stub
+//		Set<EmployeeSkillType> z = employee.getEmployeeSkills();
+//		if (employee) {
+//			
+//		}
+//		Employee x = employeeReprository.save(employee);
+//	}
 	
 	/*
 	Test test;

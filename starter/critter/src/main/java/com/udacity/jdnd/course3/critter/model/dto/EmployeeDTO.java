@@ -17,36 +17,39 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EmployeeDTO {
+public class EmployeeDTO extends UserDTO {
 
-    private long id;
-    private String name;
+//    private long id;
+//    
+//    @NotBlank(message = "Name is mandatory")
+//    private String name;
+    
     private Set<EmployeeSkillType> skills = new HashSet<EmployeeSkillType>();
     private Set<DayOfWeek> daysAvailable =new HashSet<DayOfWeek>();
-    
-	@Override
-	public String toString() {
-		return "EmployeeDTO [id=" + id + ", name=" + name + ", skills=" + skills + ", daysAvailable=" + daysAvailable
-				+ "]";
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(daysAvailable, id, name, skills);
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(daysAvailable, skills);
+		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		EmployeeDTO other = (EmployeeDTO) obj;
-		return Objects.equals(daysAvailable, other.daysAvailable) && id == other.id && Objects.equals(name, other.name)
-				&& Objects.equals(skills, other.skills);
+		return Objects.equals(daysAvailable, other.daysAvailable) && Objects.equals(skills, other.skills);
 	}
-
+	@Override
+	public String toString() {
+		return "EmployeeDTO [skills=" + skills + ", daysAvailable=" + daysAvailable + ", toString()=" + super.toString()
+				+ "]";
+	}
     
+
+	
 }

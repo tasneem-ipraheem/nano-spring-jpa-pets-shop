@@ -1,5 +1,6 @@
 package com.udacity.jdnd.course3.critter.utils;
 
+import java.time.DayOfWeek;
 import java.util.Set;
 
 //org.springframework.beans.BeanUtils.copyProperties(Object source, Object target)
@@ -58,8 +59,11 @@ public class DtoDaoAdaptor {
 		
 		Set<EmployeeSkillType> employeeDTOSkills = employeeDTO.getSkills();
 		employeeDTOSkills.addAll(employee.getEmployeeSkills());
-		
 		employeeDTO.setSkills(employeeDTOSkills);
+		
+		Set<DayOfWeek> employeeAvailableDays = employeeDTO.getDaysAvailable();
+		employeeAvailableDays.addAll(employee.getEmployeedaysAvailable());
+		employeeDTO.setDaysAvailable(employeeAvailableDays);
 		
 		return employeeDTO;
 	}
@@ -72,6 +76,10 @@ public class DtoDaoAdaptor {
 		Set<EmployeeSkillType> employeeSkills = employee.getEmployeeSkills();
 		employeeSkills.addAll(employeeDTO.getSkills());
 		employee.setEmployeeSkills(employeeSkills);
+		
+		Set<DayOfWeek> employeeAvailableDays = employee.getEmployeedaysAvailable();
+		employeeAvailableDays.addAll(employeeDTO.getDaysAvailable());
+		employee.setEmployeedaysAvailable(employeeAvailableDays);
 		
 		return employee;
 	}

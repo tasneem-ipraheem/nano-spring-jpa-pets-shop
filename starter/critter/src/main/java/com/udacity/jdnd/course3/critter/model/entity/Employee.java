@@ -31,8 +31,9 @@ public class Employee extends User implements Serializable{
 	@Enumerated(EnumType.STRING)
     private Set<EmployeeSkillType> employeeSkills = new HashSet<EmployeeSkillType>();
     
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "employeedaysAvailable")
+	@Enumerated(EnumType.STRING)
     private Set<DayOfWeek> employeedaysAvailable = new HashSet<DayOfWeek>();
     
     
