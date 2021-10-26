@@ -12,7 +12,6 @@ import com.udacity.jdnd.course3.critter.model.entity.Pet;
 import com.udacity.jdnd.course3.critter.repository.CustomerReprository;
 import com.udacity.jdnd.course3.critter.repository.PetReprository;
 import com.udacity.jdnd.course3.critter.service.exception.GeneralResponceException;
-import com.udacity.jdnd.course3.critter.service.exception.UnSupportedIdParam;
 import com.udacity.jdnd.course3.critter.utils.MESSAGES;
 
 @Service
@@ -58,8 +57,8 @@ public class PetService {
 	}
 	
 	Optional<Customer> validatePetEntity(Pet pet) {
-		if (pet.getId() == null)
-			throw new UnSupportedIdParam();
+//		if (pet.getId() == null)
+//			throw new UnSupportedIdParam();
 
 		Optional<Customer> optCustomer = customerReprository.findById(pet.getCustomer().getId());
 		

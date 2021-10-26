@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
 import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
+import com.udacity.jdnd.course3.critter.utils.MESSAGES;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,11 +21,21 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ScheduleDTO {
-    private long id;
+	
+    private Long id;
+    
+    @NotNull(message = MESSAGES.VALIDATIONS.EMPLOYEE_IDS)
     private List<Long> employeeIds;
+    
+    @NotNull(message = MESSAGES.VALIDATIONS.PET_IDS)
     private List<Long> petIds;
+    
+    @NotNull(message = MESSAGES.VALIDATIONS.DATE)
     private LocalDate date;
+
+    @NotNull(message = MESSAGES.VALIDATIONS.ACTIVITIES)
     private Set<EmployeeSkillType> activities;
+    
 	@Override
 	public int hashCode() {
 		return Objects.hash(activities, date, employeeIds, id, petIds);

@@ -13,7 +13,6 @@ import com.udacity.jdnd.course3.critter.repository.CustomerReprository;
 import com.udacity.jdnd.course3.critter.repository.PetReprository;
 import com.udacity.jdnd.course3.critter.service.exception.AlreadyExistException;
 import com.udacity.jdnd.course3.critter.service.exception.GeneralResponceException;
-import com.udacity.jdnd.course3.critter.service.exception.UnSupportedIdParam;
 import com.udacity.jdnd.course3.critter.utils.MESSAGES;
 
 @Service
@@ -59,8 +58,8 @@ public class CustomerService {
 	}
 
 	void validateCustomerEntity(Customer customer) {
-		if (customer.getId() == null)
-			throw new UnSupportedIdParam();
+//		if (customer.getId() == null)
+//			throw new UnSupportedIdParam();
 
 		if (customerReprository.existsCustomerByEmail(customer.getEmail()))
 			throw new AlreadyExistException(MESSAGES.EXCEPTIONS.EMAIL_ALREADY_EXIST);

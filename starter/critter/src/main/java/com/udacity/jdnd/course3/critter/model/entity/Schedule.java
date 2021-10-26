@@ -13,6 +13,8 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,27 +36,27 @@ public class Schedule  implements Serializable{
 	@Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 	
+	
+    private LocalDate date;
 	
     // schedule belongs to set of employees
-
-    @ManyToMany(cascade = CascadeType.ALL )//,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY )//,fetch = FetchType.EAGER)
 	private List<Employee> employees = new ArrayList<>();
     
     
     // schedule belongs to set of pets
-    @ManyToMany(cascade = CascadeType.ALL)//,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Pet> pets = new ArrayList<>();
     
     
-    
-    private LocalDate date;
-    
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)	
+	@Enumerated(EnumType.STRING)
     @CollectionTable(name = "Schedule_activities")
     private Set<EmployeeSkillType> ScheduleActivities = new HashSet<EmployeeSkillType>();
 
+    
 	@Override
 	public int hashCode() {
 		return Objects.hash(ScheduleActivities, date, employees, id, pets);

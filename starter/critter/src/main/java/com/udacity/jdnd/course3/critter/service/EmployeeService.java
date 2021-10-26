@@ -17,7 +17,6 @@ import com.udacity.jdnd.course3.critter.repository.EmployeeReprository;
 import com.udacity.jdnd.course3.critter.service.exception.AlreadyExistException;
 import com.udacity.jdnd.course3.critter.service.exception.EntityNotFoundException;
 import com.udacity.jdnd.course3.critter.service.exception.GeneralResponceException;
-import com.udacity.jdnd.course3.critter.service.exception.UnSupportedIdParam;
 import com.udacity.jdnd.course3.critter.utils.MESSAGES;
 
 //should not know any thing about dto
@@ -74,8 +73,8 @@ public class EmployeeService {
     }
 
 	void validateEmployeeEntity(Employee employee) {
-		if (employee.getId() == null)
-			throw new UnSupportedIdParam();
+//		if (employee.getId() == null)
+//			throw new UnSupportedIdParam();
 
 		if (employeeReprository.existsEmployeeByEmail(employee.getEmail()))
 			throw new AlreadyExistException(MESSAGES.EXCEPTIONS.EMAIL_ALREADY_EXIST);

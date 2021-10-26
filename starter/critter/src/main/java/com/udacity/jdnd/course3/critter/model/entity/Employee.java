@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -46,7 +47,7 @@ public class Employee extends User implements Serializable{
      * check , cascade = CascadeType.ALL
      * */
     // employee owns set of schedules
-    @ManyToMany(mappedBy = "employees")// ,fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "employees")// ,fetch = FetchType.EAGER) , cascade = CascadeType.ALL
 	private List<Schedule> schedules = new ArrayList<>();
     
     

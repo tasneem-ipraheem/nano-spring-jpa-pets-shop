@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.udacity.jdnd.course3.critter.model.PetType;
 
 import lombok.Getter;
@@ -47,8 +47,8 @@ public class Pet implements Serializable{
     private Customer customer;
 
     
-    // pet owns set of schedules
-    @ManyToMany(mappedBy = "pets")
+    // pet owns set of schedules - eager make sence here
+    @ManyToMany(mappedBy = "pets" , fetch = FetchType.EAGER)
 	private List<Schedule> schedules = new ArrayList<>();
     
     

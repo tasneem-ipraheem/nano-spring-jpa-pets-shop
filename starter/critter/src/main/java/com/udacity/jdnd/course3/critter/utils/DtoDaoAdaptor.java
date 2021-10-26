@@ -2,8 +2,11 @@ package com.udacity.jdnd.course3.critter.utils;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.validation.constraints.NotNull;
 
 //org.springframework.beans.BeanUtils.copyProperties(Object source, Object target)
 //org.apache.commons.beanutils.BeanUtils.copyProperties(Object dest, Object orig)
@@ -36,11 +39,11 @@ public class DtoDaoAdaptor {
 	public static Pet getPetFromDto(PetDTO petDTO) {
 		Pet pet = new Pet();
 		BeanUtils.copyProperties(petDTO, pet);
-		
+
 		Customer customer = new Customer();
 		customer.setId(petDTO.getOwnerId());
 		pet.setCustomer(customer);
-		
+
 		return pet;
 	}
 
@@ -52,7 +55,7 @@ public class DtoDaoAdaptor {
 
 		return petsListDTO;
 	}
-	
+
 	/****************************** Customer ****************************/
 
 	public static CustomerDTO getDtoFromCustomer(Customer customer) {
@@ -63,13 +66,13 @@ public class DtoDaoAdaptor {
 
 		List<Pet> pets = customer.getPets();
 		if (pets != null && pets.size() != 0) {
-			
+
 			for (Pet pet : pets) {
 				ids.add(pet.getId());
 			}
 		}
 		customerDTO.setPetIds(ids);
-		
+
 //		System.out.println(" adapter dto list = "+customerDTO.getPetIds());
 		return customerDTO;
 	}
@@ -79,8 +82,7 @@ public class DtoDaoAdaptor {
 		BeanUtils.copyProperties(customerDTO, customer);
 		return customer;
 	}
-	
-	
+
 	public static List<CustomerDTO> getListOfDtoFromCustomer(List<Customer> allCustomers) {
 		List<CustomerDTO> custListDTO = new ArrayList<CustomerDTO>();
 
@@ -89,7 +91,6 @@ public class DtoDaoAdaptor {
 
 		return custListDTO;
 	}
-
 
 	/****************************** Employee ****************************/
 
@@ -136,17 +137,52 @@ public class DtoDaoAdaptor {
 
 	public static ScheduleDTO getDtoFromSchedule(Schedule schedule) {
 		ScheduleDTO scheduleDTO = new ScheduleDTO();
+		Set<EmployeeSkillType> dtoActivities = new HashSet<EmployeeSkillType>();
+	    List<Long> employeeIds = new ArrayList<Long>();
+	    List<Long> petIds = new ArrayList<Long>();
+	    
 		BeanUtils.copyProperties(schedule, scheduleDTO);
+
+		List<Employee> employees = schedule.getEmployees();
+		if (employees != null && employees.size()!=0) {
+			for (Employee emp : employees)
+				employeeIds.add(emp.getId());
+			scheduleDTO.setEmployeeIds(employeeIds);
+		}
+		
+		List<Pet> pets = schedule.getPets();
+		if (pets != null && pets.size()!=0) {
+			for (Pet p : pets)
+				petIds.add(p.getId());
+			scheduleDTO.setPetIds(petIds);
+		}
+		
+		Set<EmployeeSkillType> activities = schedule.getScheduleActivities();
+		if (activities != null && activities.size()!=0) {
+			for (EmployeeSkillType act : activities)
+				dtoActivities.add(act);
+			scheduleDTO.setActivities(dtoActivities );
+		}
+		
 		return scheduleDTO;
 	}
 
-	public static Schedule getScheduleFromDto(ScheduleDTO scheduleDTO) {
+	public static Schedule getScheduleWithoutMappedListesFromDto(ScheduleDTO scheduleDTO) {
+		
 		Schedule schedule = new Schedule();
 		BeanUtils.copyProperties(scheduleDTO, schedule);
+		
+		Set<EmployeeSkillType> dtoActivities = scheduleDTO.getActivities();
+		Set<EmployeeSkillType> activities = new HashSet<EmployeeSkillType>();
+		
+		if (dtoActivities != null && dtoActivities.size()!=0) {
+			for (EmployeeSkillType act : dtoActivities)
+				activities.add(act);
+			schedule.setScheduleActivities(activities);
+		}
+		
+		
 		return schedule;
 	}
-
-
-
 
 }
