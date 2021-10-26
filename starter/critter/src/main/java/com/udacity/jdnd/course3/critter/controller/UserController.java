@@ -21,7 +21,9 @@ import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
 import com.udacity.jdnd.course3.critter.model.dto.CustomerDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeRequestDTO;
+import com.udacity.jdnd.course3.critter.model.entity.Customer;
 import com.udacity.jdnd.course3.critter.model.entity.Employee;
+import com.udacity.jdnd.course3.critter.service.CustomerService;
 import com.udacity.jdnd.course3.critter.service.EmployeeService;
 import com.udacity.jdnd.course3.critter.service.exception.EntityNotFoundException;
 import com.udacity.jdnd.course3.critter.service.exception.GeneralServerException;
@@ -41,10 +43,20 @@ public class UserController {
 
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	CustomerService customerService;
 
 	@PostMapping("/customer")
 	public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException();
+		
+//		Customer customer = customerService.save(DtoDaoAdaptor.getCustomerFromDto(customerDTO))
+		Customer customer = customerService.save(customerDTO)
+
+				.orElseThrow(() -> new GeneralServerException(MESSAGES.EXCEPTIONS.FAIL_SAVE));
+
+		return DtoDaoAdaptor.getDtoFromCustomer(customer);
 	}
 
 	@GetMapping("/customer")

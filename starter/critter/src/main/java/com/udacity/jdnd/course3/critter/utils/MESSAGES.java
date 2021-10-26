@@ -43,4 +43,9 @@ public class MESSAGES {
 
 	}
 	
+	public final class PET {
+		public static final String ID_NOT_FOUND = "Can't find pet with id ";
+
+	}
+	
 }

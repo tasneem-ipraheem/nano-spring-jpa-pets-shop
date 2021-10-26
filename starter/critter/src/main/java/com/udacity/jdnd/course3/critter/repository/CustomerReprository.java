@@ -10,4 +10,6 @@ import com.udacity.jdnd.course3.critter.model.entity.Customer;
 @Transactional
 public interface CustomerReprository  extends  JpaRepository<Customer, Long> {
 
+	boolean existsCustomerByEmail(String email);
+
 }

@@ -49,7 +49,7 @@ public class DtoDaoAdaptor {
 	}
 	
 	
-	public static Customer getCustomerFromDto(CustomerDTO customerDTO) {
+	public static Customer getCustomerWithoutPetsFromDto(CustomerDTO customerDTO) {
 		Customer customer = new Customer();
 		BeanUtils.copyProperties(customerDTO,customer);
 		return customer;

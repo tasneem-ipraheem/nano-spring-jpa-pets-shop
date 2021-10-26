@@ -1,11 +1,7 @@
 package com.udacity.jdnd.course3.critter.model.dto;
 
-import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-
-import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,9 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CustomerDTO extends UserDTO{
-//    private long id;
-//    private String name;
-//    private String phoneNumber;
+	
     private String notes;
     private List<Long> petIds;
     
