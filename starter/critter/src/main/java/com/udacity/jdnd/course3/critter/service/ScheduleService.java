@@ -39,6 +39,16 @@ public class ScheduleService {
 	@Autowired
 	CustomerReprository customerReprository;
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public Optional<Schedule> save(Schedule schedule_WithoutMappedListes, List<Long> employeeIds, List<Long> petIds) {
 		
 
@@ -73,6 +83,9 @@ public class ScheduleService {
 			for (Long i : employeeIds) {
 				Employee employee = employeeReprository.findById(i)
 						.orElseThrow(() -> new GeneralResponceException(MESSAGES.EMPLOYEE.ID_NOT_FOUND + i));
+				
+				
+				//TODO : chck if emp available at this day
 				employees.add(employee);
 				
 				
@@ -137,5 +150,32 @@ public class ScheduleService {
 		return Optional.of(scheduleReprository.save(schedule_WithoutMappedListes));
 
 	}
+
+
+
+
+
+
+
+
+
+
+
+	public List<Schedule> getAllSchedules() {
+		return  scheduleReprository.findAll();
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

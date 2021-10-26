@@ -190,4 +190,15 @@ public class DtoDaoAdaptor {
 		return schedule;
 	}
 
+
+	public static List<ScheduleDTO> getListOfDtoFromSchedule(List<Schedule> allSchedules) {
+		List<ScheduleDTO> scheduleListDTO = new ArrayList<ScheduleDTO>();
+
+		for (Schedule schedule : allSchedules)
+			scheduleListDTO.add(getDtoFromSchedule(schedule));
+
+		return scheduleListDTO;
+	}
+
+
 }
