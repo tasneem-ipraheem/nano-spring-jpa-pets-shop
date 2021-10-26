@@ -50,7 +50,7 @@ public class ScheduleController {
 
     @GetMapping("/employee/{employeeId}")
     public List<ScheduleDTO> getScheduleForEmployee(@PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+		return DtoDaoAdaptor.getListOfDtoFromSchedule(scheduleService.getAllSchedulesByEmployeeId(employeeId));
     }
 
     @GetMapping("/customer/{customerId}")
