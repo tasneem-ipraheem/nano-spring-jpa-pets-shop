@@ -39,21 +39,24 @@ public class ScheduleService {
 	@Autowired
 	CustomerReprository customerReprository;
 
-
 	public List<Schedule> getAllSchedules() {
 		return  scheduleReprository.findAll();
-
 	}
 
 	public List<Schedule> getAllSchedulesByEmployeeId(long id) {
-		
 		if (!employeeReprository.existsById(id))
 			throw new GeneralResponceException(MESSAGES.EMPLOYEE.ID_NOT_FOUND+id);
-		
-		
 		return  scheduleReprository.findAllByEmployeesId(id);
-
 	}
+	
+	public List<Schedule> getAllSchedulesByPetId(long id) {
+		if (!petReprository.existsById(id))
+			throw new GeneralResponceException(MESSAGES.PET.ID_NOT_FOUND+id);
+		return  scheduleReprository.findAllByPetsId(id);
+		
+	}
+
+	
 	
 	public Optional<Schedule> save(Schedule schedule_WithoutMappedListes, List<Long> employeeIds, List<Long> petIds) {
 		
@@ -157,5 +160,6 @@ public class ScheduleService {
 
 	}
 
+	
 
 }

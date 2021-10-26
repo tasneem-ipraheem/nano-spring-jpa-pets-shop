@@ -45,7 +45,7 @@ public class ScheduleController {
 
     @GetMapping("/pet/{petId}")
     public List<ScheduleDTO> getScheduleForPet(@PathVariable long petId) {
-        throw new UnsupportedOperationException();
+		return DtoDaoAdaptor.getListOfDtoFromSchedule(scheduleService.getAllSchedulesByPetId(petId));
     }
 
     @GetMapping("/employee/{employeeId}")
