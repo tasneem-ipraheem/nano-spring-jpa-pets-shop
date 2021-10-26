@@ -47,8 +47,9 @@ public class UserController {
 	@Autowired
 	CustomerService customerService;
 
+	@Validated
 	@PostMapping("/customer")
-	public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
+	public CustomerDTO saveCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
 		
 		Customer customer = customerService.save(DtoDaoAdaptor.getCustomerWithoutPetsFromDto(customerDTO),customerDTO.getPetIds())
 				.orElseThrow(() -> new GeneralServerException(MESSAGES.EXCEPTIONS.FAIL_SAVE));
@@ -62,11 +63,13 @@ public class UserController {
 		return DtoDaoAdaptor.getListOfDtoFromCustomer(customerService.getAllCustomers());
 
 	}
-
-	@GetMapping("/customer/pet/{petId}")
+	
+	@GetMapping("/customer/{customerId}")
 	public CustomerDTO getOwnerByPet(@PathVariable long petId) {
 		throw new UnsupportedOperationException();
 	}
+
+
 
 	/********************** employee ****************************/
 
