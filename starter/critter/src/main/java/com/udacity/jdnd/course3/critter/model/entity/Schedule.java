@@ -51,12 +51,11 @@ public class Schedule  implements Serializable{
     private List<Pet> pets = new ArrayList<>();
     
     
-    @ElementCollection(fetch = FetchType.EAGER)	
+    @ElementCollection(fetch = FetchType.EAGER )	
 	@Enumerated(EnumType.STRING)
     @CollectionTable(name = "Schedule_activities")
     private Set<EmployeeSkillType> ScheduleActivities = new HashSet<EmployeeSkillType>();
 
-    
 	@Override
 	public int hashCode() {
 		return Objects.hash(ScheduleActivities, date, employees, id, pets);

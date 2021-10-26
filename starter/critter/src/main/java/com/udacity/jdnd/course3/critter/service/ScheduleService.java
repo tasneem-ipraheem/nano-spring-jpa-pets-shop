@@ -43,7 +43,8 @@ public class ScheduleService {
 		
 
 		// TODO : get emp by id - get his skills - add it to empActivities - check for missing activity
-		
+//		MESSAGES.EMPLOYEE.LIST_MISSING_SKILLS
+
 //		Set<EmployeeSkillType> empActivities = new HashSet<EmployeeSkillType>();
 //
 //		Set<EmployeeSkillType> activities = schedule.getScheduleActivities();
@@ -61,38 +62,65 @@ public class ScheduleService {
 		// TODO : error msg : the 'petid' already has 'skillName' event on 'date' by emp
 		// = 'empid'
 
-		// if not null,0
-		// find all pets with ids -> throw ex
+		// find all pets with ids -> throw ex if not found
 		List<Employee> employees = new ArrayList<Employee>();
 		if (employeeIds != null && employeeIds.size() != 0) {
+			
+			
+		    Set<EmployeeSkillType> actualCoveredSkills = new HashSet<EmployeeSkillType>();
+			Set<EmployeeSkillType> neededActivities = schedule_WithoutMappedListes.getScheduleActivities();
+
 			for (Long i : employeeIds) {
 				Employee employee = employeeReprository.findById(i)
 						.orElseThrow(() -> new GeneralResponceException(MESSAGES.EMPLOYEE.ID_NOT_FOUND + i));
 				employees.add(employee);
 				
-				// TODO: check if all skills covered
-				Set<EmployeeSkillType> neededActivities = schedule_WithoutMappedListes.getScheduleActivities();
+				
+				/*
+				// TODO: 1- check if emp have no skills
+				// TODO: 2- check if all skills covered
+
 				Set<EmployeeSkillType> employeeSkills = employee.getEmployeeSkills();
 				
+				// store all emp skills [to check if all skills covered]
+			    actualCoveredSkills.addAll(employeeSkills);
+			    
+			    //  check if emp have no skills
 				int total = employeeSkills.size();
 		    	employeeSkills.removeAll(neededActivities);
-			    
-			    if (total == employeeSkills.size())
+
+		    	if (total == employeeSkills.size())
 			    	throw new GeneralResponceException( "Employee with id [ "+i+" ] don't have any of the requiered skills");
+		    	
+		    	*/
+			    
 			}
+			
+			/*
+			 int neededSize = neededActivities.size();
+			neededActivities.removeAll(actualCoveredSkills);
+			
+	    	if (neededSize == neededActivities.size()) {
+	    		
+	    		String missed = "";
+	            for (EmployeeSkillType temp : neededActivities) {
+	            	missed = missed +temp.values();
+	            }
+	    		
+		    	throw new GeneralResponceException( 
+		    			"The employee list don't cover this skills ["+missed+"]");
+		    	
+	    	}*/
 		}
 
 
-//		MESSAGES.EMPLOYEE.LIST_MISSING_SKILLS
-		
-		// if not null,0
-		// find all employee with ids -> throw ex
+		// find all employee with ids -> throw ex if not found
 		List<Pet> pets = new ArrayList<Pet>();
 		if (petIds != null && petIds.size() != 0) {
 			for (Long i : petIds) {
 				Pet pet = petReprository.findById(i)
 						.orElseThrow(() -> new GeneralResponceException(MESSAGES.PET.ID_NOT_FOUND + i));
-//				pet.addSchedule(schedule_WithoutMappedListes); //*pad sch - miss emp
+//				pet.addSchedule(schedule_WithoutMappedListes); //*pad - miss emp
 				pets.add(pet);
 			}
 		}
@@ -101,10 +129,10 @@ public class ScheduleService {
 		// then insert , attach mapped entities
 		schedule_WithoutMappedListes.setEmployees(employees);
 		schedule_WithoutMappedListes.setPets(pets);
-
+		
 		// TODO : check if looping needed
-		// employee.addSchedule(schedule_WithoutMappedListes);
-//		pet.addSchedule(schedule_WithoutMappedListes);
+//		 employee.addSchedule(schedule_WithoutMappedListes);
+//		 pet.addSchedule(schedule_WithoutMappedListes);
 
 		return Optional.of(scheduleReprository.save(schedule_WithoutMappedListes));
 
