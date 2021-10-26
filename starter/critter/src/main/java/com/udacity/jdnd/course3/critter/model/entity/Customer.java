@@ -27,7 +27,7 @@ public class Customer extends User implements Serializable{
     
     
     //bi-directional - the owner(1:m) table = mapped by --> add & remove
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Pet> pets = new ArrayList<>();
     
     
