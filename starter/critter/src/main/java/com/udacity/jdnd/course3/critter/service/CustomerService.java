@@ -28,13 +28,9 @@ public class CustomerService {
 	@Autowired
 	PetReprository petReprository;
 
-	public Optional<Customer> save(CustomerDTO customerDto) {
+	public Optional<Customer> save(Customer customer, List<Long> petIds) {
 
-		Customer customer = DtoDaoAdaptor.getCustomerWithoutPetsFromDto(customerDto);
 		validateCustomerEntity(customer);
-
-		List<Long> petIds = customerDto.getPetIds();
-
 		if (petIds != null && petIds .size() !=0 ) {
 			for (Long id : petIds) {
 				Pet pet = petReprository.findById(id).orElseThrow(() -> new GeneralResponceException(MESSAGES.PET.ID_NOT_FOUND+id));
@@ -59,4 +55,9 @@ public class CustomerService {
 			throw new AlreadyExistException(MESSAGES.EXCEPTIONS.PHONENUMBER_ALREADY_EXIST);
 
 	}
+
+//	public Optional<Customer> save(Customer customerWithoutPetsFromDto, List<Long> petIds) {
+		// TODO Auto-generated method stub
+//		return null;
+//	}
 }

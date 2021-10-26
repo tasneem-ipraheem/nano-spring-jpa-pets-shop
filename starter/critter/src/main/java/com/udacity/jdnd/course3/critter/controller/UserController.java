@@ -49,11 +49,8 @@ public class UserController {
 
 	@PostMapping("/customer")
 	public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
-//		throw new UnsupportedOperationException();
 		
-//		Customer customer = customerService.save(DtoDaoAdaptor.getCustomerFromDto(customerDTO))
-		Customer customer = customerService.save(customerDTO)
-
+		Customer customer = customerService.save(DtoDaoAdaptor.getCustomerWithoutPetsFromDto(customerDTO),customerDTO.getPetIds())
 				.orElseThrow(() -> new GeneralServerException(MESSAGES.EXCEPTIONS.FAIL_SAVE));
 
 		return DtoDaoAdaptor.getDtoFromCustomer(customer);
