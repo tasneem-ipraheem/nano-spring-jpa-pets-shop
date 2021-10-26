@@ -1,7 +1,6 @@
 package com.udacity.jdnd.course3.critter.controller;
 
 import java.time.DayOfWeek;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
 import com.udacity.jdnd.course3.critter.model.dto.CustomerDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeRequestDTO;
@@ -26,6 +24,7 @@ import com.udacity.jdnd.course3.critter.model.entity.Employee;
 import com.udacity.jdnd.course3.critter.service.CustomerService;
 import com.udacity.jdnd.course3.critter.service.EmployeeService;
 import com.udacity.jdnd.course3.critter.service.exception.EntityNotFoundException;
+import com.udacity.jdnd.course3.critter.service.exception.GeneralResponceException;
 import com.udacity.jdnd.course3.critter.service.exception.GeneralServerException;
 import com.udacity.jdnd.course3.critter.utils.DtoDaoAdaptor;
 import com.udacity.jdnd.course3.critter.utils.MESSAGES;
@@ -69,15 +68,22 @@ public class UserController {
 		Customer customer = customerService.getCustomerById(customerId)
 				.orElseThrow(() -> new EntityNotFoundException(customerId));
 
-		return DtoDaoAdaptor.getDtoFromCustomer(customer);	}
+		return DtoDaoAdaptor.getDtoFromCustomer(customer);	
+		
+	}
 	
 	
 	
 	
     @GetMapping("/customer/pet/{petId}")
 	public CustomerDTO getOwnerByPet(@PathVariable long petId) {
-		throw new UnsupportedOperationException();
-	}
+    	
+		Customer customer = customerService.getCustomerByPetId(petId)
+				.orElseThrow(() -> new GeneralResponceException(MESSAGES.PET.NO_CUSTOMER_PET+petId));//
+
+		return DtoDaoAdaptor.getDtoFromCustomer(customer);		
+		
+    }
 
 
 

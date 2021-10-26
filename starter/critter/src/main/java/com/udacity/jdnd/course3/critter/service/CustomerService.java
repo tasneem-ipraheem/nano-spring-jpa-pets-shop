@@ -53,6 +53,12 @@ public class CustomerService {
 		return  customerReprository.findById(id);
 
 	}
+	
+	public Optional<Customer> getCustomerByPetId(long id) {
+		Pet pet = petReprository.findById(id).orElseThrow(() -> new GeneralResponceException(MESSAGES.PET.ID_NOT_FOUND+id));
+		return customerReprository.findById(pet.getCustomer().getId());
+//		return Optional.of(customer);
+	}
 
 	void validateCustomerEntity(Customer customer) {
 		if (customer.getId() == null)
@@ -65,6 +71,8 @@ public class CustomerService {
 			throw new AlreadyExistException(MESSAGES.EXCEPTIONS.PHONENUMBER_ALREADY_EXIST);
 
 	}
+
+
 
 
 

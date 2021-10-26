@@ -12,4 +12,19 @@ public interface CustomerReprository  extends  JpaRepository<Customer, Long> {
 
 	boolean existsCustomerByEmail(String email);
 
+	
+//	private static final String GET_CUSTOMER_BY_PET_ID =
+//		    "select c from Customer c " +
+//		    "where c.favoriteComposer like :favoriteComposer";
+//			
+//			
+//			private static final String FIND_HUMANOID_BY_OUTFIT =
+//				       "select h from Humanoid h " +
+//				       "where :outfit member of h.outfits";
+//	@Query()
+//	Customer findByPetId(long id);
+	
+//	Customer findByOutfitsContaining(long id);
+
+
 }
