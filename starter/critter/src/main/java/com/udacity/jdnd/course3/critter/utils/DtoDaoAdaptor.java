@@ -1,7 +1,5 @@
 package com.udacity.jdnd.course3.critter.utils;
 
-import static org.mockito.Mockito.never;
-
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +29,7 @@ public class DtoDaoAdaptor {
 	public static PetDTO getDtoFromPet(Pet pet) {
 		PetDTO petDTO = new PetDTO();
 		BeanUtils.copyProperties(pet, petDTO);
+		petDTO.setOwnerId(pet.getCustomer().getId());
 		return petDTO;
 	}
 

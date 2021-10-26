@@ -74,7 +74,7 @@ public class UserController {
 	
 	
 	
-	
+	// postman name : Get Owner By Pet
     @GetMapping("/customer/pet/{petId}")
 	public CustomerDTO getOwnerByPet(@PathVariable long petId) {
     	
