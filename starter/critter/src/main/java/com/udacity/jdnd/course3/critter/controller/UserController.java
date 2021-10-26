@@ -59,12 +59,22 @@ public class UserController {
 
 	@GetMapping("/customer")
 	public List<CustomerDTO> getAllCustomers() {
-		
 		return DtoDaoAdaptor.getListOfDtoFromCustomer(customerService.getAllCustomers());
-
 	}
 	
+	
 	@GetMapping("/customer/{customerId}")
+	public CustomerDTO getCustomerByID(@PathVariable long customerId) {
+		
+		Customer customer = customerService.getCustomerById(customerId)
+				.orElseThrow(() -> new EntityNotFoundException(customerId));
+
+		return DtoDaoAdaptor.getDtoFromCustomer(customer);	}
+	
+	
+	
+	
+    @GetMapping("/customer/pet/{petId}")
 	public CustomerDTO getOwnerByPet(@PathVariable long petId) {
 		throw new UnsupportedOperationException();
 	}

@@ -48,7 +48,11 @@ public class CustomerService {
 		return  customerReprository.findAll();
 	}
 	
-	
+
+	public Optional<Customer> getCustomerById(long id) {
+		return  customerReprository.findById(id);
+
+	}
 
 	void validateCustomerEntity(Customer customer) {
 		if (customer.getId() == null)
@@ -61,6 +65,7 @@ public class CustomerService {
 			throw new AlreadyExistException(MESSAGES.EXCEPTIONS.PHONENUMBER_ALREADY_EXIST);
 
 	}
+
 
 
 }
