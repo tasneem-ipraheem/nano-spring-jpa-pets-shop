@@ -176,11 +176,16 @@ public class DtoDaoAdaptor {
 		Set<EmployeeSkillType> activities = new HashSet<EmployeeSkillType>();
 		
 		if (dtoActivities != null && dtoActivities.size()!=0) {
-			for (EmployeeSkillType act : dtoActivities)
+			for (EmployeeSkillType act : dtoActivities) {
 				activities.add(act);
-			schedule.setScheduleActivities(activities);
+//			System.out.println("* act : "+act.values());
 		}
-		
+			schedule.setScheduleActivities(activities);
+			
+		}
+//		System.out.println("* activities : "+activities);
+//		System.out.println("* activities size : "+activities.size());
+
 		
 		return schedule;
 	}

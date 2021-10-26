@@ -40,7 +40,7 @@ public class ScheduleService {
 	CustomerReprository customerReprository;
 
 	public Optional<Schedule> save(Schedule schedule_WithoutMappedListes, List<Long> employeeIds, List<Long> petIds) {
-//		Set<EmployeeSkillType> neededActivities = schedule_WithoutMappedListes.getScheduleActivities();
+		
 
 		// TODO : get emp by id - get his skills - add it to empActivities - check for missing activity
 		
@@ -68,28 +68,20 @@ public class ScheduleService {
 			for (Long i : employeeIds) {
 				Employee employee = employeeReprository.findById(i)
 						.orElseThrow(() -> new GeneralResponceException(MESSAGES.EMPLOYEE.ID_NOT_FOUND + i));
-				
 				employees.add(employee);
 				
-				/*
-				// TODO: check if emp have 0 needed skills
-//			    return titleOfVehicles.stream().allMatch(t -> models.stream().anyMatch(t::contains));
-				List<T> list skl = new HashSet<E>();
-				for (EmployeeSkillType a : neededActivities) {
-					Arrays.stream(a.values()).anyMatch(null);
-					
-					= Collections.list(a);
-
-				}
+				// TODO: check if all skills covered
+				Set<EmployeeSkillType> neededActivities = schedule_WithoutMappedListes.getScheduleActivities();
+				Set<EmployeeSkillType> employeeSkills = employee.getEmployeeSkills();
 				
-				//				employee.getEmployeeSkills().stream().anyMatch(Arrays.stream(DaysOfWeekEnum.values()););
-				//		MESSAGES.EMPLOYEE.EMP_NO_SKILLS
-				
-				*/
+				int total = employeeSkills.size();
+		    	employeeSkills.removeAll(neededActivities);
+			    
+			    if (total == employeeSkills.size())
+			    	throw new GeneralResponceException( "Employee with id [ "+i+" ] don't have any of the requiered skills");
 			}
 		}
 
-		
 
 //		MESSAGES.EMPLOYEE.LIST_MISSING_SKILLS
 		
