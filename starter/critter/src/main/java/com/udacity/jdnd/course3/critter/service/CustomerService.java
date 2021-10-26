@@ -43,6 +43,12 @@ public class CustomerService {
 		return Optional.of(customerReprository.save(customer));
 
 	}
+	
+	public List<Customer> getAllCustomers (){
+		return  customerReprository.findAll();
+	}
+	
+	
 
 	void validateCustomerEntity(Customer customer) {
 		if (customer.getId() == null)
@@ -56,8 +62,5 @@ public class CustomerService {
 
 	}
 
-//	public Optional<Customer> save(Customer customerWithoutPetsFromDto, List<Long> petIds) {
-		// TODO Auto-generated method stub
-//		return null;
-//	}
+
 }

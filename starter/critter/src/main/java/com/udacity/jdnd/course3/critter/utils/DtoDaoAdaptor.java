@@ -66,6 +66,17 @@ public class DtoDaoAdaptor {
 		BeanUtils.copyProperties(customerDTO, customer);
 		return customer;
 	}
+	
+	
+	public static List<CustomerDTO> getListOfDtoFromCustomer(List<Customer> allCustomers) {
+		List<CustomerDTO> custListDTO = new ArrayList<CustomerDTO>();
+
+		for (Customer cust : allCustomers)
+			custListDTO.add(getDtoFromCustomer(cust));
+
+		return custListDTO;
+	}
+
 
 	/****************************** Employee ****************************/
 
@@ -121,5 +132,6 @@ public class DtoDaoAdaptor {
 		BeanUtils.copyProperties(scheduleDTO, schedule);
 		return schedule;
 	}
+
 
 }

@@ -58,7 +58,9 @@ public class UserController {
 
 	@GetMapping("/customer")
 	public List<CustomerDTO> getAllCustomers() {
-		throw new UnsupportedOperationException();
+		
+		return DtoDaoAdaptor.getListOfDtoFromCustomer(customerService.getAllCustomers());
+
 	}
 
 	@GetMapping("/customer/pet/{petId}")
