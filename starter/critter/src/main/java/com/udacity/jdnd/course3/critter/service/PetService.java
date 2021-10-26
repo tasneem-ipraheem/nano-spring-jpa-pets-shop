@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.udacity.jdnd.course3.critter.model.entity.Customer;
 import com.udacity.jdnd.course3.critter.model.entity.Pet;
 import com.udacity.jdnd.course3.critter.repository.CustomerReprository;
 import com.udacity.jdnd.course3.critter.repository.PetReprository;
@@ -29,7 +30,19 @@ public class PetService {
 	}
 
 	public Optional<Pet> save(Pet pet) {
-		validatePetEntity(pet);
+		Optional<Customer> optCustomer = validatePetEntity(pet);
+		
+		if (optCustomer.isPresent()) {
+		List<Pet> customerPets = optCustomer.get().getPets();//.contains(pet.);
+		
+			for (Pet p : customerPets) {
+				if (p.getName().equals(pet.getName())) {
+					throw new GeneralResponceException(MESSAGES.CUSTOMER.PET_NAME_ALREADY_EXIST+p.getId());
+
+				}
+			}
+		
+		}
 		return Optional.of(petReprository.save(pet));
 	}
 
@@ -37,13 +50,18 @@ public class PetService {
 		return petReprository.findAll();
 	}
 	
-	void validatePetEntity(Pet pet) {
+	Optional<Customer> validatePetEntity(Pet pet) {
 		if (pet.getId() == null)
 			throw new UnSupportedIdParam();
 
-		if (!customerReprository.existsById(pet.getCustomer().getId()))
+		Optional<Customer> optCustomer = customerReprository.findById(pet.getCustomer().getId());
+		
+		
+		if (optCustomer.isEmpty())
 			throw new GeneralResponceException(MESSAGES.CUSTOMER.ID_NOT_FOUND+pet.getCustomer().getId());
+		
 
+		return optCustomer;
 
 	}
 

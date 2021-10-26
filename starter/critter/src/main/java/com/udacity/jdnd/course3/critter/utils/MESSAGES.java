@@ -56,6 +56,7 @@ public class MESSAGES {
 	
 	public final class CUSTOMER {
 		public static final String ID_NOT_FOUND = "Can't find customer with id ";
+		public static final String PET_NAME_ALREADY_EXIST = "this customer already have pet with the same name, the pet id = ";
 	}
 	
 }
