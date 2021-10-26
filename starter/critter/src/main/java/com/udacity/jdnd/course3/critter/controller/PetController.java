@@ -2,7 +2,10 @@ package com.udacity.jdnd.course3.critter.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +18,9 @@ import com.udacity.jdnd.course3.critter.model.entity.Pet;
 import com.udacity.jdnd.course3.critter.service.PetService;
 //import com.udacity.jdnd.course3.critter.model.entity.Customer;
 import com.udacity.jdnd.course3.critter.service.exception.EntityNotFoundException;
+import com.udacity.jdnd.course3.critter.service.exception.GeneralServerException;
 import com.udacity.jdnd.course3.critter.utils.DtoDaoAdaptor;
+import com.udacity.jdnd.course3.critter.utils.MESSAGES;
 
 /**
  * Handles web requests related to Pets.
@@ -25,23 +30,27 @@ import com.udacity.jdnd.course3.critter.utils.DtoDaoAdaptor;
 public class PetController {
 	
 	@Autowired
-	PetService PetService;
+	PetService petService;
 
+	@Validated
     @PostMapping
-    public PetDTO savePet(@RequestBody PetDTO petDTO) {
-        throw new UnsupportedOperationException();
-    }
+    public PetDTO savePet(@Valid @RequestBody PetDTO petDTO) {
+		
+		Pet pet = petService.save(DtoDaoAdaptor.getPetFromDto(petDTO))
+				.orElseThrow(() -> new GeneralServerException(MESSAGES.EXCEPTIONS.FAIL_SAVE));
+		return DtoDaoAdaptor.getDtoFromPet(pet);   
+	}
 
     @GetMapping("/{petId}")
     public PetDTO getPet(@PathVariable long petId) {
-		Pet pet = PetService.getPetById(petId)
+		Pet pet = petService.getPetById(petId)
 				.orElseThrow(() -> new EntityNotFoundException(petId));
-
-		return DtoDaoAdaptor.getDtoFromPet(pet);	    }
+		return DtoDaoAdaptor.getDtoFromPet(pet);	    
+    }
 
     @GetMapping
     public List<PetDTO> getPets(){
-        throw new UnsupportedOperationException();
+		return DtoDaoAdaptor.getListOfDtoFromPet(petService.getAllPets());
     }
 
     @GetMapping("/owner/{ownerId}")

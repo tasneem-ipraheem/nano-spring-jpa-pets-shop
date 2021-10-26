@@ -34,6 +34,11 @@ public class MESSAGES {
 		public static final String CITY ="city is mandatory";
 		public static final String FULLADDRESS ="fullAddress is mandatory";
 		public static final String DATE ="date is mandatory";
+		public static final String OWNER_ID ="Owner id is mandatory";
+		public static final String TYPE ="type is mandatory";
+
+		
+		
 
 	}
 	
@@ -47,6 +52,10 @@ public class MESSAGES {
 		public static final String ID_NOT_FOUND = "Can't find pet with id ";
 		public static final String NO_CUSTOMER_PET = "No customers have pet with id ";
 
+	}
+	
+	public final class CUSTOMER {
+		public static final String ID_NOT_FOUND = "Can't find customer with id ";
 	}
 	
 }

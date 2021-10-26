@@ -31,7 +31,7 @@ public class Pet implements Serializable{
 	@Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 	
 	@Enumerated(EnumType.STRING)
     private PetType type;

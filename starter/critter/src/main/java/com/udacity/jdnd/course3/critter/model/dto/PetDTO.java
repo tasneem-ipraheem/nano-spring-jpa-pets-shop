@@ -3,7 +3,11 @@ package com.udacity.jdnd.course3.critter.model.dto;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.udacity.jdnd.course3.critter.model.PetType;
+import com.udacity.jdnd.course3.critter.utils.MESSAGES;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,9 +22,15 @@ import lombok.Setter;
 public class PetDTO {
 	
     private long id;
+    
+    @NotNull(message = MESSAGES.VALIDATIONS.TYPE)
     private PetType type;
+    
+    @NotBlank(message = MESSAGES.VALIDATIONS.NAME)
     private String name;
-    private long ownerId;
+    
+    @NotNull (message = MESSAGES.VALIDATIONS.OWNER_ID)
+    private Long ownerId;
     private LocalDate birthDate;
     private String notes;
     

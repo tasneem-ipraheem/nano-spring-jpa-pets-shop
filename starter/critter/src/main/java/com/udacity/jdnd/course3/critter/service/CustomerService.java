@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.udacity.jdnd.course3.critter.model.dto.CustomerDTO;
 import com.udacity.jdnd.course3.critter.model.entity.Customer;
 import com.udacity.jdnd.course3.critter.model.entity.Pet;
 import com.udacity.jdnd.course3.critter.repository.CustomerReprository;
@@ -15,7 +14,6 @@ import com.udacity.jdnd.course3.critter.repository.PetReprository;
 import com.udacity.jdnd.course3.critter.service.exception.AlreadyExistException;
 import com.udacity.jdnd.course3.critter.service.exception.GeneralResponceException;
 import com.udacity.jdnd.course3.critter.service.exception.UnSupportedIdParam;
-import com.udacity.jdnd.course3.critter.utils.DtoDaoAdaptor;
 import com.udacity.jdnd.course3.critter.utils.MESSAGES;
 
 @Service
