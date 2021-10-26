@@ -28,6 +28,13 @@ public class PetService {
 	public Optional<Pet>  getPetById(long petId) {
 		return petReprository.findById(petId);
 	}
+	
+
+	public List<Pet> getPetsForCustomer(long ownerId) {
+		if (!customerReprository.existsById(ownerId))
+			throw new GeneralResponceException(MESSAGES.CUSTOMER.ID_NOT_FOUND+ownerId);
+		return petReprository.findByCustomerId(ownerId);
+	}
 
 	public Optional<Pet> save(Pet pet) {
 		Optional<Customer> optCustomer = validatePetEntity(pet);
@@ -64,5 +71,6 @@ public class PetService {
 		return optCustomer;
 
 	}
+
 
 }
