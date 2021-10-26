@@ -36,17 +36,13 @@ public class CustomerService {
 		List<Long> petIds = customerDto.getPetIds();
 
 		if (petIds != null && petIds .size() !=0 ) {
-//			List<Pet> petsList = customer.getPets();
-			
 			for (Long id : petIds) {
 				Pet pet = petReprository.findById(id).orElseThrow(() -> new GeneralResponceException(MESSAGES.PET.ID_NOT_FOUND+id));
-//				petsList.add(pet);
 				customer.addPet(pet);
 			}
-			
-//			customer.setPets(petsList);
 		}
 
+//		System.out.println(" repo customer list = "+customer.getPets());
 
 		return Optional.of(customerReprository.save(customer));
 

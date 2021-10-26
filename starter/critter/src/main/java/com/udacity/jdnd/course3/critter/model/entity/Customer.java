@@ -63,7 +63,7 @@ public class Customer extends User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Customer [notes=" + notes + ", pets=" + pets + ", toString()=" + super.toString() + "]";
+		return "Customer [notes=" + notes + ", pets=" + pets.size() + ", id=" + super.getId() + "]";
 	}
 
 
