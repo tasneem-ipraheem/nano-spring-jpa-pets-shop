@@ -56,6 +56,16 @@ public class ScheduleService {
 		
 	}
 
+	public List<Schedule> getAllSchedulesByCustomerId(long customerId) {
+		if (!customerReprository.existsById(customerId))
+			throw new GeneralResponceException(MESSAGES.CUSTOMER.ID_NOT_FOUND+customerId);
+		
+		List<Pet> petsOfCustomer = petReprository.findByCustomerId(customerId);
+		
+		
+		return  scheduleReprository.findByPetsCustomerId(customerId);
+	}
+
 	
 	
 	public Optional<Schedule> save(Schedule schedule_WithoutMappedListes, List<Long> employeeIds, List<Long> petIds) {

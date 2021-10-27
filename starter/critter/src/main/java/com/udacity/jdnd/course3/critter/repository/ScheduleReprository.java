@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.udacity.jdnd.course3.critter.model.entity.Pet;
 import com.udacity.jdnd.course3.critter.model.entity.Schedule;
 
 @Repository
@@ -24,6 +25,13 @@ public interface ScheduleReprository extends  JpaRepository<Schedule, Long> {
 			+ "  ON  schedule.id = schedule_pets.schedules_id "
 			+ "  and schedule_pets.pets_id =  :id")
 	List<Schedule> findAllByPetsId(long id);
+
+	@Query("  SELECT distinct schedule"
+			+ "  FROM schedule JOIN schedule_pets JOIN pet"
+			+ "  ON pet.id = schedule_pets.pets_id"
+			+ "  and schedule_pets.schedules_id = schedule.id"
+			+ "  and pet.customer_id =  :id")
+	List<Schedule> findByPetsCustomerId(long id);
 
 
 }
