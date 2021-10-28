@@ -44,7 +44,7 @@ public class PetService {
 			for (Pet p : customerPets) {
 				if (p.getName().equals(pet.getName())) {
 					throw new GeneralResponceException(MESSAGES.CUSTOMER.PET_NAME_ALREADY_EXIST+p.getId());
-
+					
 				}
 			}
 		
