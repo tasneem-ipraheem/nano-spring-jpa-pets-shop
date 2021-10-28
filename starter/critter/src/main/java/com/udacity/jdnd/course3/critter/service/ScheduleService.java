@@ -1,9 +1,7 @@
 package com.udacity.jdnd.course3.critter.service;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -76,10 +74,11 @@ public class ScheduleService {
 
 		// find all employees with ids -> throw ex if not found
 		List<Employee> employees = new ArrayList<Employee>();
+		Set<EmployeeSkillType> neededSkills = schedule_WithoutMappedListes.getScheduleActivities();
+		String empIdsForLog="";
 		
 		if (employeeIds != null && employeeIds.size() != 0) {
 			
-			Set<EmployeeSkillType> neededSkills = schedule_WithoutMappedListes.getScheduleActivities();
 			Set<EmployeeSkillType> actualCoveredSkills = new HashSet<EmployeeSkillType>();
 
 			for (Long i : employeeIds) {
@@ -105,6 +104,8 @@ public class ScheduleService {
 					if (!actualCoveredSkills.contains(s)) 
 						throw new GeneralResponceException("non of this employess covere skill ["+s+"]");
 				
+				//if success then add
+				empIdsForLog += i+",";
 				employees.add(employee);
 			}
 
@@ -117,6 +118,21 @@ public class ScheduleService {
 			for (Long i : petIds) {
 				Pet pet = petReprository.findById(i)
 						.orElseThrow(() -> new GeneralResponceException(MESSAGES.PET.ID_NOT_FOUND + i));
+				
+				// check for uniquness of schedual -> throw ex if found
+				List<Schedule> petSchedualList = pet.getSchedules();
+				for (Schedule s : petSchedualList) {
+					// check for the full date - not day of week
+					if (s.getDate().equals( schedule_WithoutMappedListes.getDate())
+						 &&	s.getScheduleActivities().containsAll(neededSkills)) {
+						throw new GeneralResponceException("pet with id ["+i+"] already have schedual with same "
+								+ "date, skills by employees [ "
+								+ empIdsForLog.substring(0, empIdsForLog.length() - 1)+" ],"
+								+ "\n schedual id is [ "+s.getId()+" ]");
+					}
+					
+				}
+				
 				pets.add(pet);
 			}
 		}
