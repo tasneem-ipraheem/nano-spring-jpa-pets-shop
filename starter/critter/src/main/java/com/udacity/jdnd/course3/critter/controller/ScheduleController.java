@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.udacity.jdnd.course3.critter.model.dto.ScheduleDTO;
 import com.udacity.jdnd.course3.critter.model.dto.ScheduleDTORequest;
-import com.udacity.jdnd.course3.critter.model.entity.Employee;
 import com.udacity.jdnd.course3.critter.model.entity.Schedule;
 import com.udacity.jdnd.course3.critter.service.ScheduleService;
 import com.udacity.jdnd.course3.critter.service.exception.GeneralServerException;
