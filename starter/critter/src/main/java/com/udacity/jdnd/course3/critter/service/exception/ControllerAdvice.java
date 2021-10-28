@@ -28,21 +28,6 @@ public class ControllerAdvice {
 		return ex.getMessage();
 	}
 	
-
-	@ResponseBody
-	@ExceptionHandler(UnSupportedActivityException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	String unSupportedActivityException(UnSupportedActivityException ex) {
-		return ex.getMessage();
-	}
-
-//	@ResponseBody
-//	@ExceptionHandler(UnSupportedIdParam.class)
-//	@ResponseStatus(HttpStatus.BAD_REQUEST)
-//	String unSupportedIdParam(UnSupportedIdParam ex) {
-//		return ex.getMessage();
-//	}
-	
 	@ResponseBody
 	@ExceptionHandler(AlreadyExistException.class)
 	@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
