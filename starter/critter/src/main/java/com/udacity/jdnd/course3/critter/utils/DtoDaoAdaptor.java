@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.constraints.NotNull;
-
 //org.springframework.beans.BeanUtils.copyProperties(Object source, Object target)
 //org.apache.commons.beanutils.BeanUtils.copyProperties(Object dest, Object orig)
 
@@ -18,6 +16,7 @@ import com.udacity.jdnd.course3.critter.model.dto.CustomerDTO;
 import com.udacity.jdnd.course3.critter.model.dto.EmployeeDTO;
 import com.udacity.jdnd.course3.critter.model.dto.PetDTO;
 import com.udacity.jdnd.course3.critter.model.dto.ScheduleDTO;
+import com.udacity.jdnd.course3.critter.model.dto.ScheduleDTORequest;
 import com.udacity.jdnd.course3.critter.model.entity.Customer;
 import com.udacity.jdnd.course3.critter.model.entity.Employee;
 import com.udacity.jdnd.course3.critter.model.entity.Pet;
@@ -191,6 +190,32 @@ public class DtoDaoAdaptor {
 	}
 
 
+	public static Schedule getScheduleWithoutMappedListesForAdd(ScheduleDTORequest scheduleDTORequest) {
+		
+		Schedule schedule = new Schedule();
+		BeanUtils.copyProperties(scheduleDTORequest, schedule);
+		
+//		Employee employee = new Employee();
+//		employee.setId(employeeId);
+//		List<Employee> employees = new ArrayList<>();
+//		employees.add(employee);
+//		schedule.setEmployees(employees);
+		
+		Set<EmployeeSkillType> dtoActivities = scheduleDTORequest.getActivities();
+		Set<EmployeeSkillType> activities = new HashSet<EmployeeSkillType>();
+		
+		if (dtoActivities != null && dtoActivities.size()!=0) {
+			for (EmployeeSkillType act : dtoActivities) {
+				activities.add(act);
+		}
+			schedule.setScheduleActivities(activities);
+			
+		}
+
+		
+		return schedule;
+	}
+
 	public static List<ScheduleDTO> getListOfDtoFromSchedule(List<Schedule> allSchedules) {
 		List<ScheduleDTO> scheduleListDTO = new ArrayList<ScheduleDTO>();
 
@@ -199,6 +224,7 @@ public class DtoDaoAdaptor {
 
 		return scheduleListDTO;
 	}
+
 
 
 }

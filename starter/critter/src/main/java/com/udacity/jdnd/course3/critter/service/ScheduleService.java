@@ -119,7 +119,7 @@ public class ScheduleService {
 				Pet pet = petReprository.findById(i)
 						.orElseThrow(() -> new GeneralResponceException(MESSAGES.PET.ID_NOT_FOUND + i));
 				
-				// check for uniquness of schedual -> throw ex if found
+				// check for uniqueness of schedule -> throw ex if found
 				List<Schedule> petSchedualList = pet.getSchedules();
 				for (Schedule s : petSchedualList) {
 					// check for the full date - not day of week
@@ -144,6 +144,8 @@ public class ScheduleService {
 		return Optional.of(scheduleReprository.save(schedule_WithoutMappedListes));
 
 	}
+	
+	/************************************************************************/
 
 	public Optional<Schedule> create(Schedule schedule_WithoutMappedListes, List<Long> employeeIds, List<Long> petIds) {
 
@@ -239,5 +241,6 @@ public class ScheduleService {
 		return Optional.of(scheduleReprository.save(schedule_WithoutMappedListes));
 
 	}
+
 
 }
