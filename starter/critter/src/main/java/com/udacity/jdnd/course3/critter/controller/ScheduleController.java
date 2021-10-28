@@ -1,20 +1,24 @@
 package com.udacity.jdnd.course3.critter.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.udacity.jdnd.course3.critter.model.dto.ScheduleDTO;
-import com.udacity.jdnd.course3.critter.model.entity.Pet;
 import com.udacity.jdnd.course3.critter.model.entity.Schedule;
 import com.udacity.jdnd.course3.critter.service.ScheduleService;
 import com.udacity.jdnd.course3.critter.service.exception.GeneralServerException;
 import com.udacity.jdnd.course3.critter.utils.DtoDaoAdaptor;
 import com.udacity.jdnd.course3.critter.utils.MESSAGES;
-
-import java.util.List;
-
-import javax.validation.Valid;
 
 /**
  * Handles web requests related to Schedules.
