@@ -62,10 +62,9 @@ public class ScheduleService {
 	public List<Schedule> getAllSchedulesByCustomerId(long customerId) {
 		if (!customerReprository.existsById(customerId))
 			throw new GeneralResponceException(MESSAGES.CUSTOMER.ID_NOT_FOUND + customerId);
-
-		List<Pet> petsOfCustomer = petReprository.findByCustomerId(customerId);
-
 		return scheduleReprository.findByPetsCustomerId(customerId);
+
+//		List<Pet> petsOfCustomer = petReprository.findByCustomerId(customerId);
 	}
 
 	public Optional<Schedule> save(Schedule schedule_WithoutMappedListes, List<Long> employeeIds, List<Long> petIds) {
@@ -73,14 +72,15 @@ public class ScheduleService {
 		DayOfWeek nededDate = schedule_WithoutMappedListes.getDate().getDayOfWeek();
 		Set<DayOfWeek> nededDateSet = new HashSet<DayOfWeek>();
 		nededDateSet.add(nededDate);
+		
 
 		// find all employees with ids -> throw ex if not found
 		List<Employee> employees = new ArrayList<Employee>();
 		
 		if (employeeIds != null && employeeIds.size() != 0) {
-
+			
+			Set<EmployeeSkillType> neededSkills = schedule_WithoutMappedListes.getScheduleActivities();
 			Set<EmployeeSkillType> actualCoveredSkills = new HashSet<EmployeeSkillType>();
-			Set<EmployeeSkillType> neededActivities = schedule_WithoutMappedListes.getScheduleActivities();
 
 			for (Long i : employeeIds) {
 				Employee employee = employeeReprository.findById(i)
@@ -88,11 +88,23 @@ public class ScheduleService {
 
 				// TODO : check if emp available at this day
 				Set<DayOfWeek> employeeDayes = employee.getEmployeedaysAvailable();
-				if (CollectionUtils.containsAny(nededDateSet,employeeDayes)) {
-					throw new GeneralResponceException("Employee with id ["+i+"] not available on ["+nededDate+"]");
-				}  
-				  
-				  
+				if (!CollectionUtils.containsAny(nededDateSet,employeeDayes)) {
+					throw new GeneralResponceException("Employee with id ["+i+"] not available on ["+nededDate+"]"
+							+ "Kindly choose some one else");
+				} 
+				
+				// TODO : check if emp don't have any needed skills
+				Set<EmployeeSkillType> employeeSkills = employee.getEmployeeSkills(); 
+				if (!CollectionUtils.containsAny(employeeSkills,neededSkills)) {
+					throw new GeneralResponceException("Employee with id ["+i+"] don't have any of needed skills,"
+							+ "Kindly choose some one else");
+				} 
+				//TODO : check if all skills are covered by provided employees
+				actualCoveredSkills.addAll(employeeSkills);
+				for (EmployeeSkillType s : neededSkills) 
+					if (!actualCoveredSkills.contains(s)) 
+						throw new GeneralResponceException("non of this employess covere skill ["+s+"]");
+				
 				employees.add(employee);
 			}
 
