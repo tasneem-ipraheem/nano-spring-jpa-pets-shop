@@ -211,16 +211,20 @@ public class CritterFunctionalTest {
 
     @Test
     public void testFindScheduleByEntities__() {
+    	/* 
+    	 * in sched1 employees Have all skills as i check if skills not exists for the employee
+    	 */
         ScheduleDTO sched1 = populateSchedule(1, 2, LocalDate.of(2019, 12, 25), 
-        		Sets.newHashSet(new HashSet<>(Arrays.asList(EmployeeSkillType.values()))));
-        ScheduleDTO sched2 = populateSchedule_1(3, 1, LocalDate.of(2019, 12, 26), 
+        		Sets.newHashSet(new HashSet<> (Arrays.asList(EmployeeSkillType.values())))); 
+        
+        ScheduleDTO sched2 = populateAnotherSchedule(3, 1, LocalDate.of(2019, 12, 26), 
         		Sets.newHashSet(EmployeeSkillType.PETTING));
 
         //add a third schedule that shares some employees and pets with the other schedules
         ScheduleDTO sched3 = new ScheduleDTO();
         sched3.setEmployeeIds(sched1.getEmployeeIds());
         sched3.setPetIds(sched2.getPetIds());
-        sched3.setActivities(Sets.newHashSet(EmployeeSkillType.FEEDING, EmployeeSkillType.PETTING));
+        sched3.setActivities(Sets.newHashSet(EmployeeSkillType.SHAVING, EmployeeSkillType.PETTING));
         sched3.setDate(LocalDate.of(2021, 10, 28));
         scheduleController.createSchedule(sched3);
 
@@ -340,10 +344,10 @@ public class CritterFunctionalTest {
                 }).collect(Collectors.toList());
         return scheduleController.createSchedule(createScheduleDTO(petIds, employeeIds, date, activities));
     }
-    private ScheduleDTO populateSchedule_1(int numEmployees, int numPets, LocalDate date, Set<EmployeeSkillType> activities) {
+    private ScheduleDTO populateAnotherSchedule(int numEmployees, int numPets, LocalDate date, Set<EmployeeSkillType> activities) {
        
     	List<Long> employeeIds = IntStream.range(0, numEmployees)
-                .mapToObj(i -> createUniqueEmployeeDTO(i+100))
+                .mapToObj(i -> createUniqueEmployeeDTO(i+ 100 ))
                 .map(e -> {
                     e.setSkills(activities);
                     e.setDaysAvailable(Sets.newHashSet(new HashSet<>(Arrays.asList(DayOfWeek.values()))));
@@ -355,7 +359,7 @@ public class CritterFunctionalTest {
         CustomerDTO cust = userController.saveCustomer(createUniqueCustomerDTO(10));
         
         List<Long> petIds = IntStream.range(0, numPets)
-                .mapToObj(i -> createPetDTO())
+                .mapToObj(i -> createUniquePetDTO(i))
                 .map(p -> {
                     p.setOwnerId(cust.getId());
                     return petController.savePet(p).getId();
