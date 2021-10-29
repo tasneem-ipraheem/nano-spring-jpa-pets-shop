@@ -210,7 +210,7 @@ public class CritterFunctionalTest {
     }
 
     @Test
-    public void testFindScheduleByEntities() {
+    public void testFindScheduleByEntities__() {
         ScheduleDTO sched1 = populateSchedule(1, 2, LocalDate.of(2019, 12, 25), 
         		Sets.newHashSet(new HashSet<>(Arrays.asList(EmployeeSkillType.values()))));
         ScheduleDTO sched2 = populateSchedule_1(3, 1, LocalDate.of(2019, 12, 26), 
@@ -333,7 +333,7 @@ public class CritterFunctionalTest {
         CustomerDTO cust = userController.saveCustomer(createCustomerDTO());
         
         List<Long> petIds = IntStream.range(0, numPets)
-                .mapToObj(i -> createPetDTO())
+                .mapToObj(i -> createUniquePetDTO(i))
                 .map(p -> {
                     p.setOwnerId(cust.getId());
                     return petController.savePet(p).getId();
@@ -343,7 +343,7 @@ public class CritterFunctionalTest {
     private ScheduleDTO populateSchedule_1(int numEmployees, int numPets, LocalDate date, Set<EmployeeSkillType> activities) {
        
     	List<Long> employeeIds = IntStream.range(0, numEmployees)
-                .mapToObj(i -> createUniqueEmployeeDTO(i+4))
+                .mapToObj(i -> createUniqueEmployeeDTO(i+100))
                 .map(e -> {
                     e.setSkills(activities);
                     e.setDaysAvailable(Sets.newHashSet(new HashSet<>(Arrays.asList(DayOfWeek.values()))));
