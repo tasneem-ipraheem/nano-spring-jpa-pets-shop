@@ -45,7 +45,7 @@ public class MESSAGES {
 	
 	
 	public final class EMPLOYEE {
-		public static final String NOT_AVAILABLE_EMPLOYEES = "Sorry such skills are not available in this day, choose another day";
+		public static final String NOT_AVAILABLE_EMPLOYEES = "Sorry choose another day, such skills are not available on [ ";
 		public static final String ID_NOT_FOUND = "Can't find employee with id ";
 		public final static String EMP_NO_SKILLS ="Employee with id %d don't have any of the requiered skills ";
 		public static final String LIST_MISSING_SKILLS = "Employee List do not contain employee for skills [ ";

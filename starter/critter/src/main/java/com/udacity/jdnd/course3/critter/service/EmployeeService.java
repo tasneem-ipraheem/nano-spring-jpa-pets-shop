@@ -65,7 +65,7 @@ public class EmployeeService {
 	       }
 	       
 	  if (availableEmployees.size() == 0) 
-	    	  throw new GeneralResponceException(MESSAGES.EMPLOYEE.NOT_AVAILABLE_EMPLOYEES);
+	    	  throw new GeneralResponceException(MESSAGES.EMPLOYEE.NOT_AVAILABLE_EMPLOYEES + dayAvailable+" ]");
 		
 	       
 		 return availableEmployees;

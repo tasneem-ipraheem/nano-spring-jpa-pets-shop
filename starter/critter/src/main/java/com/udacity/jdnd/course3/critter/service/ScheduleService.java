@@ -96,14 +96,19 @@ public class ScheduleService {
 				// TODO : check if emp don't have any needed skills
 				Set<EmployeeSkillType> employeeSkills = employee.getEmployeeSkills(); 
 				if (!CollectionUtils.containsAny(employeeSkills,neededSkills)) {
-					throw new GeneralResponceException("Employee with id ["+i+"] don't have any of needed skills,"
+					throw new GeneralResponceException("Employee with id ["+i+"] don't have needed skills,"
 							+ "Kindly choose some one else");
 				} 
 				//TODO : check if all skills are covered by provided employees
+				String unsportedSkills="";
 				actualCoveredSkills.addAll(employeeSkills);
 				for (EmployeeSkillType s : neededSkills) 
 					if (!actualCoveredSkills.contains(s)) 
-						throw new GeneralResponceException("non of this employess covere skill ["+s+"]");
+						unsportedSkills+=s+",";
+				
+				if (!unsportedSkills.equals(""))
+					throw new GeneralResponceException("non of this employess cover skills ["
+							+unsportedSkills.substring(0, unsportedSkills.length() - 1)+"]");
 				
 				//if success then add
 				empIdsForLog += i+",";
