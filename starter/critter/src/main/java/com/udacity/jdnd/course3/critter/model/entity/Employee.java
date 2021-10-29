@@ -48,7 +48,7 @@ public class Employee extends User implements Serializable{
      * */
     // employee owns set of schedules
     @ManyToMany(mappedBy = "employees")// ,fetch = FetchType.EAGER) , cascade = CascadeType.ALL
-	private List<Schedule> schedules = new ArrayList<>();
+	private Set<Schedule> schedules = new <Schedule> HashSet();
     
     
 	public void addSchedule(Schedule schedule) {
