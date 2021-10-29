@@ -32,6 +32,7 @@ public class DtoDaoAdaptor {
 		PetDTO petDTO = new PetDTO();
 		BeanUtils.copyProperties(pet, petDTO);
 		petDTO.setOwnerId(pet.getCustomer().getId());
+		pet.getCustomer().addPet(pet);
 		return petDTO;
 	}
 
@@ -42,6 +43,7 @@ public class DtoDaoAdaptor {
 		Customer customer = new Customer();
 		customer.setId(petDTO.getOwnerId());
 		pet.setCustomer(customer);
+		pet.getCustomer().addPet(pet);
 
 		return pet;
 	}
@@ -63,7 +65,7 @@ public class DtoDaoAdaptor {
 
 		List<Long> ids = new ArrayList<Long>();
 
-		List<Pet> pets = customer.getPets();
+		Set<Pet> pets = customer.getPets();
 		if (pets != null && pets.size() != 0) {
 
 			for (Pet pet : pets) {

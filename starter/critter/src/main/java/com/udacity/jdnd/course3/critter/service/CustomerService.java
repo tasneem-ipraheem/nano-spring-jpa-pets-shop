@@ -54,6 +54,7 @@ public class CustomerService {
 	public Optional<Customer> getCustomerByPetId(long id) {
 		Pet pet = petReprository.findById(id).orElseThrow(() -> new GeneralResponceException(MESSAGES.PET.ID_NOT_FOUND+id));
 		return customerReprository.findById(pet.getCustomer().getId());
+//		return customerReprository.findByPetsId(id);
 //		return Optional.of(customer);
 	}
 

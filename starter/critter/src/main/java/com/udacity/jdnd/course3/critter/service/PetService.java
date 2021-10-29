@@ -2,6 +2,7 @@ package com.udacity.jdnd.course3.critter.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class PetService {
 		Optional<Customer> optCustomer = validatePetEntity(pet);
 		
 		if (optCustomer.isPresent()) {
-		List<Pet> customerPets = optCustomer.get().getPets();//.contains(pet.);
+		Set<Pet> customerPets = optCustomer.get().getPets();//.contains(pet.);
 		
 			for (Pet p : customerPets) {
 				if (p.getName().equals(pet.getName())) {

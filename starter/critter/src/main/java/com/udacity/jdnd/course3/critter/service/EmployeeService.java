@@ -53,7 +53,7 @@ public class EmployeeService {
 		
 		DayOfWeek dayAvailable = employeeRequestDTO.getDate().getDayOfWeek();
 		Set<EmployeeSkillType> requiredSkills = employeeRequestDTO.getSkills();
-		
+
 		 List<Employee> employeesAvailableAtTheDay = employeeReprository.findEmployeesByEmployeedaysAvailable(dayAvailable);
 		
 		 List<Employee> availableEmployees =  new ArrayList<Employee>();

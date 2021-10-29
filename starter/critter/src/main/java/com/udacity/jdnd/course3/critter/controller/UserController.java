@@ -117,8 +117,9 @@ public class UserController {
 	}
 
 	// postman name : Check Employee Schedule
+	@Validated
 	@GetMapping("/employee/availability")
-	public List<EmployeeDTO> findEmployeesForService( @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+	public List<EmployeeDTO> findEmployeesForService(@Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
 		
 		List<Employee> employeeList = employeeService.getEmployeesForService(employeeRequestDTO);
 		return DtoDaoAdaptor.getListDtoFromEmployee(employeeList);

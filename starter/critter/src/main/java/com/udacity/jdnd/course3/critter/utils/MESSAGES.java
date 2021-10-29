@@ -39,6 +39,7 @@ public class MESSAGES {
 		public static final String ACTIVITIES = "Activities is mandatory";
 		public static final String EMPLOYEE_IDS = "Employee IDs List is mandatory, we can't create schedual without assigning employee/s to it";
 		public static final String PET_IDS = "Pet IDs List is mandatory, we can't create schedual without assigning Pet/s to it";
+		public static final String SKILLS ="skills is mandatory";
 
 	}
 	

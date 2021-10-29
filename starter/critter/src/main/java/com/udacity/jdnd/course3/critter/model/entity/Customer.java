@@ -1,17 +1,13 @@
 package com.udacity.jdnd.course3.critter.model.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import lombok.Getter;
@@ -28,8 +24,8 @@ public class Customer extends User implements Serializable{
     
     //bi-directional - the owner(1:m) table = mapped by --> add & remove
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<Pet> pets = new ArrayList<>();
-    
+    private Set<Pet> pets = new HashSet<Pet>();
+
     
 	public void addPet(Pet pet) {
 		pets.add( pet );
@@ -41,25 +37,25 @@ public class Customer extends User implements Serializable{
 		pet.setCustomer( null );
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(notes, pets);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Customer other = (Customer) obj;
-		return Objects.equals(notes, other.notes) && Objects.equals(pets, other.pets);
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = super.hashCode();
+//		result = prime * result + Objects.hash(notes, pets);
+//		return result;
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (!super.equals(obj))
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Customer other = (Customer) obj;
+//		return Objects.equals(notes, other.notes) && Objects.equals(pets, other.pets);
+//	}
 
 	@Override
 	public String toString() {

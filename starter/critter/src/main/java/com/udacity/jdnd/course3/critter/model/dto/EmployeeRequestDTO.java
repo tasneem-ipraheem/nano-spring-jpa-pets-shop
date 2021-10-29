@@ -1,12 +1,10 @@
 package com.udacity.jdnd.course3.critter.model.dto;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
-
-
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.udacity.jdnd.course3.critter.model.EmployeeSkillType;
@@ -22,9 +20,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EmployeeRequestDTO implements Serializable{
+	
+	
+    @NotNull(message = MESSAGES.VALIDATIONS.SKILLS)
     private Set<EmployeeSkillType> skills;
     
-//    @NotBlank(message = MESSAGES.VALIDATIONS.DATE)
+    @NotNull(message = MESSAGES.VALIDATIONS.DATE)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
 
