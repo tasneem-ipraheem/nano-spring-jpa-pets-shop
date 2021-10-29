@@ -210,10 +210,10 @@ public class CritterFunctionalTest {
     }
 
     @Test
-    public void testFindScheduleByEntities__() {
+    public void testFindScheduleByEntities() {
     	/* 
     	 * in sched1 employees Have all skills as i check if skills not exists for the employee
-    	 */
+    	 **/
         ScheduleDTO sched1 = populateSchedule(1, 2, LocalDate.of(2019, 12, 25), 
         		Sets.newHashSet(new HashSet<> (Arrays.asList(EmployeeSkillType.values())))); 
         
@@ -330,6 +330,9 @@ public class CritterFunctionalTest {
                 .mapToObj(i -> createUniqueEmployeeDTO(i))
                 .map(e -> {
                     e.setSkills(activities);
+                	/* 
+                	 * in sched1 employees available all days as i check if the day not exist 
+                	 **/
                     e.setDaysAvailable(Sets.newHashSet(new HashSet<>(Arrays.asList(DayOfWeek.values()))));
                     return userController.saveEmployee(e).getId();
                 }).collect(Collectors.toList());
