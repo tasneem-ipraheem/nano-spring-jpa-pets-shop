@@ -1,6 +1,6 @@
-# Critter Chronologer Project Starter
+# Pets shop
 
-Critter Chronologer a Software as a Service application that provides a scheduling interface for a small business that takes care of animals. This Spring Boot project will allow users to create pets, owners, and employees, and then schedule events for employees to provide services for pets.
+It is a Software as a Service application that provides a scheduling interface for a small business that takes care of animals. This Spring Boot project will allow users to create pets, owners, and employees, and then schedule events for employees to provide services for pets.
 
 
 ## Getting Started
@@ -25,7 +25,7 @@ Another SQL database may be used if desired, but do not use the H2 in-memory dat
 ### Installation
 
 1. Clone or download this repository.
-2. Open IntelliJ IDEA.
+2. Open Eclipse.
 3. In IDEA, select `File` -> `Open` and navigate to the `critter` directory within this repository. Select that directory to open.
 4. The project should open in IDEA. In the project structure, navigate to `src/main/java/com.udacity.jdnd.course3.critter`. 
 5. Within that directory, click on CritterApplication.java and select `Run` -> `Debug CritterApplication`. 
